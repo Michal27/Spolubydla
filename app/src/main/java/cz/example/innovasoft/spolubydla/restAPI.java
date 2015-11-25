@@ -2,6 +2,7 @@ package cz.example.innovasoft.spolubydla;
 
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
+import android.renderscript.ScriptGroup;
 import android.util.Log;
 
 import com.google.gson.Gson;
@@ -18,6 +19,9 @@ import org.apache.http.util.EntityUtils;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
 import java.util.HashMap;
@@ -41,15 +45,10 @@ public class restAPI extends AsyncTask<String, String, JSONObject> {
 
     protected void addGroup(String str) {
 
-        Group group = new Group();
-
-        group.name = "kokinek";
-        group.settings = "123456";
-        group.code = "";
 
         Gson gson = new Gson();
         HashMap<String, Object> hashMap = new HashMap<String, Object>();
-        hashMap.put("group", group);
+        hashMap.put("group", MainActivity.group);
         Type mapType = new TypeToken<HashMap<String, Object>>() {}.getType();
 
         HttpClient httpClient = new DefaultHttpClient();
@@ -66,11 +65,24 @@ public class restAPI extends AsyncTask<String, String, JSONObject> {
 
         try {
             HttpResponse response = httpClient.execute(httpPost);
-            HttpEntity entity = response.getEntity();
-            Log.d("POST", EntityUtils.toString(entity));
+            JSONParseGroup(response.getEntity().getContent());
+
+
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+    }
+
+    protected void JSONParseGroup(InputStream data) {
+
+        Gson gson = new Gson();
+
+        Reader r = new InputStreamReader(data);
+
+        Group objs = gson.fromJson(r, Group.class);
+
+        MainActivity.group.setId(objs.getId());
 
     }
 
