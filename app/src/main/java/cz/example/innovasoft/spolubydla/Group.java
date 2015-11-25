@@ -16,35 +16,33 @@ public class Group {
     Group() {
     }
 
-    private String getName() {
+    public String getName() {
         return this.name;
     }
 
-    private String getSettings() {
+    public String getSettings() {
         return this.settings;
     }
 
-    private String getCode() {
-        return this.code;
-    }
+    public String getCode() { return this.code;}
 
-    private String getId() {
+    public String getId() {
         return this.id;
     }
 
-    private void setName(String name) {
+    public void setName(String name) {
         this.name = name;
     }
 
-    private void setSettings(String settings) {
+    public void setSettings(String settings) {
         this.settings = settings;
     }
 
-    private void setCode(String code) {
+    public void setCode(String code) {
         this.code = code;
     }
 
-    private void setId(String id) {
+    public void setId(String id) {
         this.id = id;
     }
 
