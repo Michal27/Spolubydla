@@ -2,6 +2,7 @@ package cz.example.innovasoft.spolubydla;
 
 import android.app.ActionBar;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -18,6 +19,7 @@ import android.view.MenuItem;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+    public static final String PREFS_NAME = "SpolubydlaPrefs";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,8 +28,11 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        //if(je to prvni prihlaseni)
-        startActivity(new Intent(MainActivity.this, WelcomeActivity.class));
+        SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+        int userId = settings.getInt("userId", -1);
+
+        if(userId == -1)
+            startActivity(new Intent(MainActivity.this, WelcomeActivity.class));
 
         final ActionBar actionBar = getActionBar();
         // Specify that tabs should be displayed in the action bar.
