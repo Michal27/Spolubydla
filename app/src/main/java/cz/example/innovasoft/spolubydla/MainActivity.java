@@ -28,6 +28,9 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        //if(je to prvni prihlaseni)
+        startActivity(new Intent(MainActivity.this, WelcomeActivity.class));
+
         final ActionBar actionBar = getActionBar();
         // Specify that tabs should be displayed in the action bar.
 

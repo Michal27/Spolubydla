@@ -5,6 +5,8 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
-    <string name="title_activity_settings">SettingsActivity</string>
-    <string name="title_activity_add_task">AddTaskActivity</string>
+    <string name="action_ok">Hotovo</string>
+    <string name="title_activity_settings">Nastavení</string>
+    <string name="title_activity_add_task">Přidat úkol</string>
+    <string name="title_activity_welcome">Vítejte</string>
 </resources>
