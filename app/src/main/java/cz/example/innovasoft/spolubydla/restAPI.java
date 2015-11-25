@@ -35,16 +35,20 @@ public class restAPI extends AsyncTask<String, String, JSONObject> {
 
     @Override
     protected JSONObject doInBackground(String... args) {
-        // Getting JSON from URL
 
+        if (args[0] == "addGroup") {
+            addGroup();
+            addMember();
+        }
+        else if (args[0] == "addTask") {
+            addTask();
+        }
 
-        addGroup(args[0]);
         return null;
 
     }
 
-    protected void addGroup(String str) {
-
+    protected void addGroup() {
 
         Gson gson = new Gson();
         HashMap<String, Object> hashMap = new HashMap<String, Object>();
@@ -86,7 +90,93 @@ public class restAPI extends AsyncTask<String, String, JSONObject> {
 
     }
 
-    protected void deleteGroup(String id) {
+    protected void addMember() {
+        Gson gson = new Gson();
+        MainActivity.member.setGroup_id(MainActivity.group.getId());
+        MainActivity.member.setAdmin(false);
+        HashMap<String, Object> hashMap = new HashMap<String, Object>();
+        hashMap.put("member", MainActivity.member);
+        Type mapType = new TypeToken<HashMap<String, Object>>() {}.getType();
+
+        HttpClient httpClient = new DefaultHttpClient();
+
+        HttpPost httpPost = new HttpPost("https://spolubydle.herokuapp.com/members.json");
+
+        httpPost.setHeader("Content-Type", "application/json; charset=utf-8");
+
+        try {
+            httpPost.setEntity(new StringEntity(new Gson().toJson(hashMap, mapType)));
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            HttpResponse response = httpClient.execute(httpPost);
+            JSONParseMember(response.getEntity().getContent());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    protected void JSONParseMember(InputStream data) {
+
+        Gson gson = new Gson();
+
+        Reader r = new InputStreamReader(data);
+
+        Member objs = gson.fromJson(r, Member.class);
+
+        MainActivity.member.setId(objs.getId());
+
+    }
+
+    protected void addTask() {
+        Gson gson = new Gson();
+        HashMap<String, Object> hashMap = new HashMap<String, Object>();
+
+        MainActivity.actualTask.setGroup_id(MainActivity.group.getId());
+        MainActivity.actualTask.setMember_id(MainActivity.member.getId());
+        MainActivity.actualTask.setDescription("Vyper psa");
+
+        hashMap.put("task", MainActivity.actualTask);
+        Type mapType = new TypeToken<HashMap<String, Object>>() {}.getType();
+
+        HttpClient httpClient = new DefaultHttpClient();
+
+        HttpPost httpPost = new HttpPost("https://spolubydle.herokuapp.com/tasks.json");
+
+        httpPost.setHeader("Content-Type", "application/json; charset=utf-8");
+
+        try {
+            httpPost.setEntity(new StringEntity(new Gson().toJson(hashMap, mapType)));
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            HttpResponse response = httpClient.execute(httpPost);
+            MainActivity.actualTask.setId(getIdTask(response.getEntity().getContent()));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        MainActivity.tasks.add(MainActivity.actualTask);
+        MainActivity.actualTask.Clear();
+    }
+
+    protected String getIdTask(InputStream data) {
+
+        Gson gson = new Gson();
+
+        Reader r = new InputStreamReader(data);
+
+        Task objs = gson.fromJson(r, Task.class);
+
+        return objs.getId();
+
+    }
+
+    protected void deleteGroup() {
 
         HttpClient httpClient = new DefaultHttpClient();
         HttpDelete httpDelete = new HttpDelete("https://spolubydle.herokuapp.com/groups/9.json");

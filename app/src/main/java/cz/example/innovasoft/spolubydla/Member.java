@@ -13,35 +13,35 @@ public class Member {
 
     public Boolean admin;
 
-    private String getName() {
+    public String getName() {
         return this.name;
     }
 
-    private String getSettings() {
+    public String getGroup_id() {
         return this.group_id;
     }
 
-    private Boolean getCode() {
+    public Boolean getAdmin() {
         return this.admin;
     }
 
-    private String getId() {
+    public String getId() {
         return this.id;
     }
 
-    private void setName(String name) {
+    public void setName(String name) {
         this.name = name;
     }
 
-    private void setSettings(String group_id) {
+    public void setGroup_id(String group_id) {
         this.group_id = group_id;
     }
 
-    private void setCode(Boolean admin) {
+    public void setAdmin(Boolean admin) {
         this.admin = admin;
     }
 
-    private void setId(String id) {
+    public void setId(String id) {
         this.id = id;
     }
 }

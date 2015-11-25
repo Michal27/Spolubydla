@@ -17,11 +17,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     public static final String PREFS_NAME = "SpolubydlaPrefs";
 
     static public Group group;
+    static public Member member;
+    static public ArrayList<Task> tasks;
+    static public Task actualTask;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +45,9 @@ public class MainActivity extends AppCompatActivity
         // Specify that tabs should be displayed in the action bar.
 
         group = new Group();
+        member = new Member();
+        tasks = new ArrayList<Task>();
+        actualTask = new Task();
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
