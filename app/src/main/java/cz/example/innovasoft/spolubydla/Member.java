@@ -3,29 +3,26 @@ package cz.example.innovasoft.spolubydla;
 /**
  * Created by tom on 25.11.15.
  */
-public class Group {
+public class Member {
 
     public String name;
 
-    public String settings;
-
-    public String code;
-
     public String id;
 
-    Group() {
-    }
+    public String group_id;
+
+    public Boolean admin;
 
     private String getName() {
         return this.name;
     }
 
     private String getSettings() {
-        return this.settings;
+        return this.group_id;
     }
 
-    private String getCode() {
-        return this.code;
+    private Boolean getCode() {
+        return this.admin;
     }
 
     private String getId() {
@@ -36,16 +33,15 @@ public class Group {
         this.name = name;
     }
 
-    private void setSettings(String settings) {
-        this.settings = settings;
+    private void setSettings(String group_id) {
+        this.group_id = group_id;
     }
 
-    private void setCode(String code) {
-        this.code = code;
+    private void setCode(Boolean admin) {
+        this.admin = admin;
     }
 
     private void setId(String id) {
         this.id = id;
     }
-
 }
