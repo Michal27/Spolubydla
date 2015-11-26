@@ -8,8 +8,15 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class AddTaskActivity extends AppCompatActivity {
+
+    public List<String> users;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,6 +28,16 @@ public class AddTaskActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+        Spinner selectUser = (Spinner) findViewById(R.id.whoValue);
+        users = new ArrayList<String>();
+        users.add("Dement");
+        users.add("Pičus");
+        users.add("Zmrd");
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_dropdown_item, users);
+        selectUser.setAdapter(adapter);
+
 
     }
 

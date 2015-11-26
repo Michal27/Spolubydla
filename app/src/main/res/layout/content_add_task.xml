@@ -10,4 +10,109 @@
     tools:showIn="@layout/activity_add_task"
     tools:context="cz.example.innovasoft.spolubydla.AddTaskActivity">
 
+    <ScrollView android:id="@+id/login_form" android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout android:id="@+id/addTaskForm" android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:orientation="vertical">
+
+            <LinearLayout android:id="@+id/description" android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:orientation="vertical">
+
+                <TextView android:id="@+id/descriptionDescription" android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:hint="Popis úkolu"
+                    android:singleLine="true" />
+
+                <android.support.design.widget.TextInputLayout android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <AutoCompleteTextView android:id="@+id/taskDescription" android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:singleLine="true" />
+                </android.support.design.widget.TextInputLayout>
+
+            </LinearLayout>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="20dp"/>
+
+            <LinearLayout android:id="@+id/who" android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:orientation="vertical">
+
+                <TextView android:id="@+id/spinnerDescription" android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:hint="Osoba"
+                    android:singleLine="true" />
+                <Spinner
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/whoValue" />
+            </LinearLayout>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="20dp"/>
+
+            <LinearLayout android:id="@+id/points" android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:orientation="vertical">
+
+                <TextView android:id="@+id/pointsDescription" android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:hint="Počet bodů"
+                    android:singleLine="true" />
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"/>
+                <SeekBar
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/pointsValue" />
+            </LinearLayout>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="30dp"/>
+
+            <LinearLayout android:id="@+id/taskDate" android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:orientation="vertical">
+
+                <TextView android:id="@+id/taskDateDescription" android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:hint="Datum dokončení"
+                    android:singleLine="true" />
+                <android.support.design.widget.TextInputLayout android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <AutoCompleteTextView android:id="@+id/dateView" android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:singleLine="true"
+                        android:editable="false"/>
+                </android.support.design.widget.TextInputLayout>
+                <!--<CalendarView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/calendarView"
+                    android:layout_centerHorizontal="true" />-->
+            </LinearLayout>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="30dp"/>
+
+            <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent" >
+
+                <TextView android:id="@+id/extraTaskDescription" android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:hint="Jednorázový úkol"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:singleLine="true" />
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    android:id="@+id/extraTaskValue" />
+            </RelativeLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
 </RelativeLayout>
