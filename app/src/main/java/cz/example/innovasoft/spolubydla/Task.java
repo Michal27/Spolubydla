@@ -15,43 +15,51 @@ public class Task {
 
     String member_id;
 
-    private String getDescription() {
+    public String getDescription() {
         return this.description;
     }
 
-    private String getGroup_id() {
+    public String getGroup_id() {
         return this.group_id;
     }
 
-    private String getDueDate() {
+    public String getDueDate() {
         return this.due_date;
     }
 
-    private String getMember_id() {
+    public String getMember_id() {
         return this.member_id;
     }
 
-    private String getId() {
+    public String getId() {
         return this.id;
     }
 
-    private void setGroup_id(String group_id) {
+    public void setGroup_id(String group_id) {
         this.group_id = group_id;
     }
 
-    private void setDue_date(String group_id) {
+    public void setDue_date(String due_date) {
         this.due_date = due_date;
     }
 
-    private void setDescription(String admin) {
+    public void setDescription(String description) {
         this.description = description;
     }
 
-    private void setMember_id(String id) {
+    public void setMember_id(String member_id) {
         this.member_id = member_id;
     }
 
-    private void setId(String id) {
+    public void setId(String id) {
         this.id = id;
+    }
+
+    public void Clear() {
+        this.id = "";
+        this.group_id = "";
+        this.member_id = "";
+        this.description = "";
+        this.due_date = "";
     }
 }

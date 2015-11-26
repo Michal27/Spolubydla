@@ -29,6 +29,8 @@ public class WelcomeActivity extends AppCompatActivity {
             MainActivity.group.setSettings("");
             MainActivity.group.setCode("");
 
+            MainActivity.member.setName("Spolubydla");
+
             new restAPI().execute("addGroup");
 
             this.finish();
