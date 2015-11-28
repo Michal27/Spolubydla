@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +31,9 @@ public class AddTaskActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         Spinner selectUser = (Spinner) findViewById(R.id.whoValue);
+
+        //ArrayList<Member> members = restAPI.getMembersFromJSON();
+
         users = new ArrayList<String>();
         users.add("Dement");
         users.add("Pičus");
@@ -48,8 +52,13 @@ public class AddTaskActivity extends AppCompatActivity {
                 this.finish();
                 return true;
             case R.id.action_done:
-                //TADY BUDE PRIDANI UKOLU
-                this.finish();
+                TextView textDescription = (TextView) findViewById(R.id.taskDescription);
+                if (textDescription.getText().toString() != "") {
+                    MainActivity.actualTask.setDescription(textDescription.getText().toString());
+                    new restAPI().execute("addTask");
+                    this.finish();
+                }
+
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -62,5 +71,6 @@ public class AddTaskActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
+
 
 }

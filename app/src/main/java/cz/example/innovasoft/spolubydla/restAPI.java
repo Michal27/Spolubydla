@@ -24,6 +24,7 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -136,7 +137,6 @@ public class restAPI extends AsyncTask<String, String, JSONObject> {
 
         MainActivity.actualTask.setGroup_id(MainActivity.group.getId());
         MainActivity.actualTask.setMember_id(MainActivity.member.getId());
-        MainActivity.actualTask.setDescription("Vyper psa");
 
         hashMap.put("task", MainActivity.actualTask);
         Type mapType = new TypeToken<HashMap<String, Object>>() {}.getType();
@@ -195,6 +195,34 @@ public class restAPI extends AsyncTask<String, String, JSONObject> {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public static ArrayList<Member> getMembersFromJSON() {
+        InputStream data = null;
+        HttpClient httpClient = new DefaultHttpClient();
+
+        String url = "https://spolubydle.herokuapp.com/groups/:" + MainActivity.group.getId() + "/members.json";
+        HttpPost httpPost = new HttpPost(url);
+
+        httpPost.setHeader("Content-Type", "application/json; charset=utf-8");
+
+        try {
+            HttpResponse response = httpClient.execute(httpPost);
+
+            data = response.getEntity().getContent();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        Gson gson = new Gson();
+
+        Reader r = new InputStreamReader(data);
+
+        Members objs = gson.fromJson(r, Members.class);
+
+        Log.d("LIST",Integer.toString(objs.getMembers().size()));
+
+        return objs.getMembers();
     }
 
 }
