@@ -5,6 +5,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -32,12 +33,12 @@ public class AddTaskActivity extends AppCompatActivity {
 
         Spinner selectUser = (Spinner) findViewById(R.id.whoValue);
 
-        //ArrayList<Member> members = restAPI.getMembersFromJSON();
-
         users = new ArrayList<String>();
-        users.add("Dement");
-        users.add("Pičus");
-        users.add("Zmrd");
+        Log.d("DEBUG", Integer.toString(MainActivity.members.size()));
+        for (int i = 0; MainActivity.members.size() > i; i++) {
+            users.add(MainActivity.members.get(i).getName());
+        }
+
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_dropdown_item, users);
         selectUser.setAdapter(adapter);

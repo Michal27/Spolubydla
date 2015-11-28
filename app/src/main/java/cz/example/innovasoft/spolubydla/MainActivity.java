@@ -27,6 +27,10 @@ public class MainActivity extends AppCompatActivity
     static public Member member;
     static public ArrayList<Task> tasks;
     static public Task actualTask;
+    static public ArrayList<Member> members;
+    static public ArrayList<Task> userTasks;
+    static public ArrayList<Task> allTasks;
+    static public String code;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +52,10 @@ public class MainActivity extends AppCompatActivity
         member = new Member();
         tasks = new ArrayList<Task>();
         actualTask = new Task();
+        members = new ArrayList<Member>();
+        userTasks = new ArrayList<Task>();
+        allTasks = new ArrayList<Task>();
+        code = new String();
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
