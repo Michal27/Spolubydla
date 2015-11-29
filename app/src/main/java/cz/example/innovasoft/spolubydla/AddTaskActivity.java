@@ -1,17 +1,18 @@
 package cz.example.innovasoft.spolubydla;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.LinearLayout;
+import android.widget.AutoCompleteTextView;
+import android.widget.CalendarView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -23,8 +24,13 @@ import java.util.concurrent.ExecutionException;
 
 public class AddTaskActivity extends AppCompatActivity {
 
+    public static int day;
+    public static int month;
+    public static int year;
+
     public static List<String> users;
     public static ArrayList<Member> ms;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,5 +109,35 @@ public class AddTaskActivity extends AppCompatActivity {
         return true;
     }
 
+    public void calendarChoosePressed(View view)
+    {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = this.getLayoutInflater();
+        View myCalendarView = inflater.inflate(R.layout.calendar_dialog, null);
+        builder.setView(myCalendarView)
+                .setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        AutoCompleteTextView dateView = (AutoCompleteTextView) findViewById(R.id.dateView);
+                        dateView.setText(AddTaskActivity.day + "." + AddTaskActivity.month + "." + AddTaskActivity.year);
+                    }
+                })
+                .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+
+                    }
+                });
+        builder.create();
+        builder.show();
+
+        CalendarView calendar = (CalendarView) myCalendarView.findViewById(R.id.calendar);
+        calendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+            public void onSelectedDayChange(CalendarView view, int year, int month, int dayOfMonth) {
+                AddTaskActivity.day = dayOfMonth;
+                AddTaskActivity.month = month+1;
+                AddTaskActivity.year = year;
+            }
+        });
+    }
 
 }

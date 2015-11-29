@@ -144,7 +144,8 @@ public class MainActivity extends AppCompatActivity
         tabLayout.addTab(tabLayout.newTab().setText("Všechny"));
         tabLayout.addTab(tabLayout.newTab().setText("Žebříček"));
 
-
+        new restAPI().execute("getTasks");
+        displayTasks(allTasks);
     }
 
     @Override

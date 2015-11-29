@@ -39,7 +39,7 @@
         <activity
             android:name=".ChangeColorActivity"
             android:label="@string/title_activity_change_color"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

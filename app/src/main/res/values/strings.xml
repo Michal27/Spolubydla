@@ -11,4 +11,5 @@
     <string name="title_activity_welcome">Vítejte</string>
     <string name="title_activity_change_name">Změnit jméno</string>
     <string name="title_activity_change_color">Změnit barvu</string>
+    <string name="title_activity_calendar">CalendarActivity</string>
 </resources>
