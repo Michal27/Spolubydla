@@ -140,6 +140,8 @@ public class MainActivity extends AppCompatActivity
 
         new restAPI().execute("getTasks");
         displayTasks(allTasks);
+        displayTasks(allTasks);
+        displayTasks(allTasks);
     }
 
     @Override
