@@ -10,6 +10,7 @@ import android.media.Image;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -32,7 +33,6 @@ public class MainActivity extends AppCompatActivity
 
     static public Group group;
     static public Member member;
-    static public ArrayList<Task> tasks;
     static public Task actualTask;
     static public ArrayList<Member> members;
     static public ArrayList<Task> userTasks;
@@ -49,20 +49,21 @@ public class MainActivity extends AppCompatActivity
         SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
         int userId = settings.getInt("userId", -1);
 
+        group = new Group();
+        member = new Member();
+        actualTask = new Task();
+        members = new ArrayList<Member>();
+        userTasks = new ArrayList<Task>();
+        allTasks = new ArrayList<Task>();
+        code = new String();
+
         if(userId == -1)
             startActivity(new Intent(MainActivity.this, WelcomeActivity.class));
 
         final ActionBar actionBar = getActionBar();
         // Specify that tabs should be displayed in the action bar.
 
-        group = new Group();
-        member = new Member();
-        tasks = new ArrayList<Task>();
-        actualTask = new Task();
-        members = new ArrayList<Member>();
-        userTasks = new ArrayList<Task>();
-        allTasks = new ArrayList<Task>();
-        code = new String();
+
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -86,7 +87,8 @@ public class MainActivity extends AppCompatActivity
         tabLayout.addTab(tabLayout.newTab().setText("Všechny"));
         tabLayout.addTab(tabLayout.newTab().setText("Žebříček"));
 
-        displayTasks(tasks);
+        new restAPI().execute("getTasks");
+        displayTasks(allTasks);
     }
 
     @Override
@@ -118,21 +120,24 @@ public class MainActivity extends AppCompatActivity
 
     public void displayTasks(ArrayList<Task> displayTasks)
     {
+        Log.d("Debug", Integer.toString(userTasks.size()));
+        Log.d("Debug", Integer.toString(allTasks.size()));
         LinearLayout mainContent = (LinearLayout)findViewById(R.id.mainContent);
         mainContent.removeAllViews();
 
-        for (int i = 0; i < 8; i++)
+        for (int i = 0; i < 8; i++) // for (int i=0; displayTasks.size() > i; i++)
         {
             View square = getLayoutInflater().inflate(R.layout.square_template, null);
 
             TextView taskName = (TextView) square.findViewById(R.id.taskName);
-            taskName.setText("Testovací úkol" + i); //TADY NASTAVIT JMENO TASKU
+            taskName.setText("Testovací úkol" + i); //TADY NASTAVIT JMENO TASKU //displayTasks.get(i).getDescription()
 
             TextView taskUser = (TextView) square.findViewById(R.id.taskUser);
-            taskUser.setText("Franta" + i); //TADY NASTAVIT USERA TASKU
+            taskUser.setText("Franta" + i); //TADY NASTAVIT USERA TASKU         //displayTasks.get(i).getMemberName()
 
             TextView taskPoints = (TextView) square.findViewById(R.id.taskPoints);
-            taskPoints.setText("100 bodů"); //TADY NASTAVIT POCET BODU TASKU
+            taskPoints.setText("100 bodů"); //TADY NASTAVIT POCET BODU TASKU //displayTasks.get(i).getPoints()
+
 
             ImageView userColor = (ImageView) square.findViewById(R.id.userImage);
             if(i == 0)//user.color == 0

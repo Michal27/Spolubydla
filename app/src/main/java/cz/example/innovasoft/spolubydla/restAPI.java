@@ -115,9 +115,40 @@ public class restAPI extends AsyncTask<String, String, JSONObject> {
     }
 
     protected void addMember() {
-        Gson gson = new Gson();
+
         MainActivity.member.setGroup_id(MainActivity.group.getId());
         MainActivity.member.setAdmin(false);
+
+        HashMap<String, Object> hashMap = new HashMap<String, Object>();
+
+        hashMap.put("member", MainActivity.member);
+
+        Type mapType = new TypeToken<HashMap<String, Object>>() {}.getType();
+
+        HttpClient httpClient = new DefaultHttpClient();
+
+        HttpPost httpPost = new HttpPost("https://spolubydle.herokuapp.com/members.json");
+
+        httpPost.setHeader("Content-Type", "application/json; charset=utf-8");
+
+        try {
+            httpPost.setEntity(new StringEntity(new Gson().toJson(hashMap, mapType)));
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            HttpResponse response = httpClient.execute(httpPost);
+            JSONParseMember(response.getEntity().getContent());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    protected void joinMember() {
+
+        MainActivity.member.setAdmin(false);
+        MainActivity.member.setGroup_code("bjeuteuz"); //TADY VLOZIT KOD Z FILDU
         HashMap<String, Object> hashMap = new HashMap<String, Object>();
 
         hashMap.put("member", MainActivity.member);
@@ -153,6 +184,7 @@ public class restAPI extends AsyncTask<String, String, JSONObject> {
         Member objs = gson.fromJson(r, Member.class);
 
         MainActivity.member.setId(objs.getId());
+        MainActivity.member.setColor(objs.getColor());
 
     }
 
@@ -185,8 +217,6 @@ public class restAPI extends AsyncTask<String, String, JSONObject> {
 
             for(JsonElement obj : jArray ) {
                 Group g = gson.fromJson(obj, Group.class);
-                Log.d("Code", g.getCode());
-                Log.d("Code", MainActivity.code);
                 if (g.getCode() == MainActivity.code) {
                     Log.d("Code", g.getCode());
                     MainActivity.group.setCode(MainActivity.code);
@@ -199,11 +229,12 @@ public class restAPI extends AsyncTask<String, String, JSONObject> {
     }
 
     protected void addTask() {
-        Gson gson = new Gson();
+
         HashMap<String, Object> hashMap = new HashMap<String, Object>();
 
         MainActivity.actualTask.setGroup_id(MainActivity.group.getId());
         MainActivity.actualTask.setMember_id(MainActivity.member.getId());
+        MainActivity.actualTask.setMemberName(MainActivity.member.getName());
 
         hashMap.put("task", MainActivity.actualTask);
         Type mapType = new TypeToken<HashMap<String, Object>>() {}.getType();
@@ -227,7 +258,7 @@ public class restAPI extends AsyncTask<String, String, JSONObject> {
             e.printStackTrace();
         }
 
-        MainActivity.tasks.add(MainActivity.actualTask);
+        MainActivity.allTasks.add(MainActivity.actualTask);
         MainActivity.actualTask.Clear();
     }
 
@@ -361,7 +392,7 @@ public class restAPI extends AsyncTask<String, String, JSONObject> {
     }
 
     public void changeUserName() {
-        Gson gson = new Gson();
+
         HashMap<String, Object> hashMap = new HashMap<String, Object>();
         hashMap.put("member", MainActivity.member);
         Type mapType = new TypeToken<HashMap<String, Object>>() {}.getType();

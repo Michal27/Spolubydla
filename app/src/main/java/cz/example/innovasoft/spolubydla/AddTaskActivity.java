@@ -34,7 +34,7 @@ public class AddTaskActivity extends AppCompatActivity {
         Spinner selectUser = (Spinner) findViewById(R.id.whoValue);
 
         users = new ArrayList<String>();
-        Log.d("DEBUG", Integer.toString(MainActivity.members.size()));
+
         for (int i = 0; MainActivity.members.size() > i; i++) {
             users.add(MainActivity.members.get(i).getName());
         }
