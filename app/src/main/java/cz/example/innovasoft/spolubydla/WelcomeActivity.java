@@ -1,9 +1,11 @@
 package cz.example.innovasoft.spolubydla;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
@@ -157,6 +159,7 @@ public class WelcomeActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
 
+            LocalBroadcastManager.getInstance(this).sendBroadcast(new Intent("activity-2-initialized"));
             //MainActivity.displayTasks(MainActivity.allTasks);
             this.finish();
         }
