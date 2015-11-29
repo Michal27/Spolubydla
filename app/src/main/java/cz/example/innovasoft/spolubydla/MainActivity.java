@@ -1,13 +1,16 @@
 package cz.example.innovasoft.spolubydla;
 
 import android.app.ActionBar;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.media.Image;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
-import android.support.v4.view.ViewPager;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -16,6 +19,10 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -70,6 +77,8 @@ public class MainActivity extends AppCompatActivity
         tabLayout.addTab(tabLayout.newTab().setText("Moje"));
         tabLayout.addTab(tabLayout.newTab().setText("Všechny"));
         tabLayout.addTab(tabLayout.newTab().setText("Žebříček"));
+
+        displayTasks(tasks);
     }
 
     @Override
@@ -93,9 +102,66 @@ public class MainActivity extends AppCompatActivity
             startActivity(new Intent(MainActivity.this, SettingsActivity.class));
         }
 
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+
+    public void displayTasks(ArrayList<Task> displayTasks)
+    {
+        LinearLayout mainContent = (LinearLayout)findViewById(R.id.mainContent);
+        mainContent.removeAllViews();
+
+        for (int i = 0; i < 8; i++)
+        {
+            View square = getLayoutInflater().inflate(R.layout.square_template, null);
+
+            TextView taskName = (TextView) square.findViewById(R.id.taskName);
+            taskName.setText("Testovací úkol" + i); //TADY NASTAVIT JMENO TASKU
+
+            TextView taskUser = (TextView) square.findViewById(R.id.taskUser);
+            taskUser.setText("Franta" + i); //TADY NASTAVIT USERA TASKU
+
+            TextView taskPoints = (TextView) square.findViewById(R.id.taskPoints);
+            taskPoints.setText("100 bodů"); //TADY NASTAVIT POCET BODU TASKU
+
+            ImageView userColor = (ImageView) square.findViewById(R.id.userImage);
+            if(i == 0)//user.color == 0
+            {
+                userColor.setColorFilter(Color.rgb(235,25,25)); //red
+            }
+            else if(i == 1)
+            {
+                userColor.setColorFilter(Color.rgb(25,190,25)); //green
+            }
+            else if(i == 2)
+            {
+                userColor.setColorFilter(Color.rgb(50,215,200)); //azure
+            }
+            else if(i == 3)
+            {
+                userColor.setColorFilter(Color.rgb(0,128,255)); //blue
+            }
+            else if(i == 4)
+            {
+                userColor.setColorFilter(Color.rgb(250,190,20)); //orange
+            }
+            else if(i == 5)
+            {
+                userColor.setColorFilter(Color.rgb(150,40,250)); //purple
+            }
+            else if(i == 6)
+            {
+                userColor.setColorFilter(Color.rgb(225,40,225)); //pink
+            }
+            else if(i == 7)
+            {
+                userColor.setColorFilter(Color.rgb(0,0,0)); //black
+            }
+
+            mainContent.addView(square);
+            mainContent.invalidate();
+        }
     }
 }
