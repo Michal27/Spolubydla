@@ -15,6 +15,10 @@ public class Task {
 
     String member_id;
 
+    String member_name;
+
+    String points;
+
     public String getDescription() {
         return this.description;
     }
@@ -34,6 +38,14 @@ public class Task {
     public String getId() {
         return this.id;
     }
+
+    public String getMemberName() {return this.member_name; }
+
+    public String getPoints() { return this.points;}
+
+    public void setPoints( String points) { this.points = points;}
+
+    public void setMemberName(String member_name) { this.member_name = member_name;}
 
     public void setGroup_id(String group_id) {
         this.group_id = group_id;

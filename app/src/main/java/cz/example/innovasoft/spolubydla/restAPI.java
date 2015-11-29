@@ -6,13 +6,18 @@ import android.renderscript.ScriptGroup;
 import android.util.Log;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpDelete;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpPut;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
@@ -40,9 +45,27 @@ public class restAPI extends AsyncTask<String, String, JSONObject> {
         if (args[0] == "addGroup") {
             addGroup();
             addMember();
+            getMembers();
         }
         else if (args[0] == "addTask") {
             addTask();
+        }
+        else if (args[0] == "getMembers") {
+            getMembers();
+        }
+        else if (args[0] == "getTasks") {
+            getUserTasks();
+            getAllTasks();
+        }
+        else if (args[0] == "findGroup") {
+            getGroupID();
+        }
+        else if (args[0] == "joinGroup") {
+            addMember();
+            getMembers();
+        }
+        else if (args[0] == "changeName") {
+            changeUserName();
         }
 
         return null;
@@ -88,15 +111,48 @@ public class restAPI extends AsyncTask<String, String, JSONObject> {
         Group objs = gson.fromJson(r, Group.class);
 
         MainActivity.group.setId(objs.getId());
-
+        MainActivity.group.setCode(objs.getCode());
     }
 
     protected void addMember() {
-        Gson gson = new Gson();
+
         MainActivity.member.setGroup_id(MainActivity.group.getId());
         MainActivity.member.setAdmin(false);
+
         HashMap<String, Object> hashMap = new HashMap<String, Object>();
+
         hashMap.put("member", MainActivity.member);
+
+        Type mapType = new TypeToken<HashMap<String, Object>>() {}.getType();
+
+        HttpClient httpClient = new DefaultHttpClient();
+
+        HttpPost httpPost = new HttpPost("https://spolubydle.herokuapp.com/members.json");
+
+        httpPost.setHeader("Content-Type", "application/json; charset=utf-8");
+
+        try {
+            httpPost.setEntity(new StringEntity(new Gson().toJson(hashMap, mapType)));
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            HttpResponse response = httpClient.execute(httpPost);
+            JSONParseMember(response.getEntity().getContent());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    protected void joinMember() {
+
+        MainActivity.member.setAdmin(false);
+        MainActivity.member.setGroup_code("bjeuteuz"); //TADY VLOZIT KOD Z FILDU
+        HashMap<String, Object> hashMap = new HashMap<String, Object>();
+
+        hashMap.put("member", MainActivity.member);
+
         Type mapType = new TypeToken<HashMap<String, Object>>() {}.getType();
 
         HttpClient httpClient = new DefaultHttpClient();
@@ -128,15 +184,57 @@ public class restAPI extends AsyncTask<String, String, JSONObject> {
         Member objs = gson.fromJson(r, Member.class);
 
         MainActivity.member.setId(objs.getId());
+        MainActivity.member.setColor(objs.getColor());
 
     }
 
+
+    protected void getGroupID() {
+
+        InputStream data = null;
+        HttpClient httpClient = new DefaultHttpClient();
+
+        String url = "https://spolubydle.herokuapp.com/groups.json";
+        HttpGet httpGet = new HttpGet(url);
+
+        httpGet.setHeader("Content-Type", "application/json; charset=utf-8");
+
+        try {
+            HttpResponse response = httpClient.execute(httpGet);
+            data = response.getEntity().getContent();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        if (data != null) {
+
+            Reader r = new InputStreamReader(data);
+
+            Gson gson = new Gson();
+            JsonParser parser = new JsonParser();
+
+            JsonArray jArray = parser.parse(r).getAsJsonArray();
+
+            for(JsonElement obj : jArray ) {
+                Group g = gson.fromJson(obj, Group.class);
+                if (g.getCode() == MainActivity.code) {
+                    Log.d("Code", g.getCode());
+                    MainActivity.group.setCode(MainActivity.code);
+                    MainActivity.group.setName(g.getName());
+                    MainActivity.group.setId(g.getId());
+                    MainActivity.group.setSettings(g.getSettings());
+                }
+            }
+        }
+    }
+
     protected void addTask() {
-        Gson gson = new Gson();
+
         HashMap<String, Object> hashMap = new HashMap<String, Object>();
 
         MainActivity.actualTask.setGroup_id(MainActivity.group.getId());
         MainActivity.actualTask.setMember_id(MainActivity.member.getId());
+        MainActivity.actualTask.setMemberName(MainActivity.member.getName());
 
         hashMap.put("task", MainActivity.actualTask);
         Type mapType = new TypeToken<HashMap<String, Object>>() {}.getType();
@@ -160,7 +258,7 @@ public class restAPI extends AsyncTask<String, String, JSONObject> {
             e.printStackTrace();
         }
 
-        MainActivity.tasks.add(MainActivity.actualTask);
+        MainActivity.allTasks.add(MainActivity.actualTask);
         MainActivity.actualTask.Clear();
     }
 
@@ -197,32 +295,124 @@ public class restAPI extends AsyncTask<String, String, JSONObject> {
         }
     }
 
-    public static ArrayList<Member> getMembersFromJSON() {
+    public void getMembers() {
         InputStream data = null;
         HttpClient httpClient = new DefaultHttpClient();
 
-        String url = "https://spolubydle.herokuapp.com/groups/:" + MainActivity.group.getId() + "/members.json";
-        HttpPost httpPost = new HttpPost(url);
+        String url = "https://spolubydle.herokuapp.com/groups/" + MainActivity.group.getId() + "/members.json";
+        HttpGet httpGet = new HttpGet(url);
 
-        httpPost.setHeader("Content-Type", "application/json; charset=utf-8");
+        httpGet.setHeader("Content-Type", "application/json; charset=utf-8");
 
         try {
-            HttpResponse response = httpClient.execute(httpPost);
-
+            HttpResponse response = httpClient.execute(httpGet);
             data = response.getEntity().getContent();
+
         } catch (IOException e) {
             e.printStackTrace();
         }
+        if (data != null) {
 
-        Gson gson = new Gson();
+            Reader r = new InputStreamReader(data);
 
-        Reader r = new InputStreamReader(data);
+            Gson gson = new Gson();
+            JsonParser parser = new JsonParser();
 
-        Members objs = gson.fromJson(r, Members.class);
+            JsonArray jArray = parser.parse(r).getAsJsonArray();
 
-        Log.d("LIST",Integer.toString(objs.getMembers().size()));
-
-        return objs.getMembers();
+            for(JsonElement obj : jArray ) {
+                Member m = gson.fromJson(obj, Member.class);
+                MainActivity.members.add(m);
+            }
+        }
     }
 
+    public void getUserTasks() {
+        InputStream data = null;
+        HttpClient httpClient = new DefaultHttpClient();
+
+        String url = "https://spolubydle.herokuapp.com/members/" + MainActivity.member.getId() + "/tasks.json";
+        HttpGet httpGet = new HttpGet(url);
+
+        httpGet.setHeader("Content-Type", "application/json; charset=utf-8");
+
+        try {
+            HttpResponse response = httpClient.execute(httpGet);
+            data = response.getEntity().getContent();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        if (data != null) {
+
+            Reader r = new InputStreamReader(data);
+
+            Gson gson = new Gson();
+            JsonParser parser = new JsonParser();
+
+            JsonArray jArray = parser.parse(r).getAsJsonArray();
+
+            for(JsonElement obj : jArray ) {
+                Task t = gson.fromJson(obj, Task.class);
+                MainActivity.userTasks.add(t);
+            }
+        }
+    }
+
+    public void getAllTasks() {
+        InputStream data = null;
+        HttpClient httpClient = new DefaultHttpClient();
+
+        String url = "https://spolubydle.herokuapp.com/groups/" + MainActivity.group.getId() + "/tasks.json";
+        HttpGet httpGet = new HttpGet(url);
+
+        httpGet.setHeader("Content-Type", "application/json; charset=utf-8");
+
+        try {
+            HttpResponse response = httpClient.execute(httpGet);
+            data = response.getEntity().getContent();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        if (data != null) {
+
+            Reader r = new InputStreamReader(data);
+
+            Gson gson = new Gson();
+            JsonParser parser = new JsonParser();
+
+            JsonArray jArray = parser.parse(r).getAsJsonArray();
+
+            for(JsonElement obj : jArray ) {
+                Task t = gson.fromJson(obj, Task.class);
+                MainActivity.allTasks.add(t);
+            }
+        }
+    }
+
+    public void changeUserName() {
+
+        HashMap<String, Object> hashMap = new HashMap<String, Object>();
+        hashMap.put("member", MainActivity.member);
+        Type mapType = new TypeToken<HashMap<String, Object>>() {}.getType();
+
+        HttpClient httpClient = new DefaultHttpClient();
+
+        HttpPut httpPut = new HttpPut("https://spolubydle.herokuapp.com/members.json");
+
+        httpPut.setHeader("Content-Type", "application/json; charset=utf-8");
+
+        try {
+            httpPut.setEntity(new StringEntity(new Gson().toJson(hashMap, mapType)));
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            HttpResponse response = httpClient.execute(httpPut);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

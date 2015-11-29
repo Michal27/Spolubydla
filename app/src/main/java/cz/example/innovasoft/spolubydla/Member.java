@@ -13,6 +13,10 @@ public class Member {
 
     public Boolean admin;
 
+    public String color;
+
+    public String group_code;
+
     public String getName() {
         return this.name;
     }
@@ -29,6 +33,11 @@ public class Member {
         return this.id;
     }
 
+    public String getColor() { return this.color; }
+
+    public String getGroup_code() { return this.group_code; }
+
+    public void setGroup_code(String group_code) { this.group_code = group_code;}
     public void setName(String name) {
         this.name = name;
     }
@@ -44,4 +53,7 @@ public class Member {
     public void setId(String id) {
         this.id = id;
     }
+
+    public void setColor(String color) { this.color = color; }
+
 }
