@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -70,6 +71,19 @@ public class AddTaskActivity extends AppCompatActivity {
                     } catch (ExecutionException e) {
                         e.printStackTrace();
                     }
+                    MainActivity.allTasks = new ArrayList<>();
+                    MainActivity.userTasks = new ArrayList<>();
+
+                    try {
+                        JSONObject js = new restAPI().execute("getTasks").get();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    } catch (ExecutionException e) {
+                        e.printStackTrace();
+                    }
+
+                    Log.d("Code", Integer.toString(MainActivity.allTasks.size()));
+
                     this.finish();
                 }
 

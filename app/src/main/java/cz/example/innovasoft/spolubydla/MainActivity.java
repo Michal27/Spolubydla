@@ -64,20 +64,17 @@ public class MainActivity extends AppCompatActivity
         allTasks = new ArrayList<Task>();
         code = new String();
 
-        if(userId == -1)
+        if(userId == -1) {
             startActivity(new Intent(MainActivity.this, WelcomeActivity.class));
-
+        }
         final ActionBar actionBar = getActionBar();
         // Specify that tabs should be displayed in the action bar.
-
-
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(MainActivity.this, AddTaskActivity.class));
-
             }
         });
 
@@ -142,8 +139,6 @@ public class MainActivity extends AppCompatActivity
         tabLayout.addTab(tabLayout.newTab().setText("Žebříček"));
 
 
-
-
     }
 
     @Override
@@ -187,17 +182,19 @@ public class MainActivity extends AppCompatActivity
     }
 
 
-    public static void displayTasks(ArrayList<Task> displayTasks)
+    public void displayTasks(ArrayList<Task> displayTasks)
     {
-        Log.d("Debug", Integer.toString(userTasks.size()));
-        Log.d("Debug", Integer.toString(allTasks.size()));
+
         LinearLayout mainContent = (LinearLayout)findViewById(R.id.mainContent);
+
         mainContent.removeAllViews();
+
+        View square = getLayoutInflater().inflate(R.layout.square_template, null);
 
         for (int i=0; displayTasks.size() > i; i++)
         {
-            View square = getLayoutInflater().inflate(R.layout.square_template, null);
 
+            displayTasks.get(i).setMember_color("1"); //toto pak odkráglovat
             TextView taskName = (TextView) square.findViewById(R.id.taskName);
             taskName.setText(displayTasks.get(i).getDescription());
 
@@ -207,37 +204,36 @@ public class MainActivity extends AppCompatActivity
             TextView taskPoints = (TextView) square.findViewById(R.id.taskPoints);
             taskPoints.setText(displayTasks.get(i).getPoints());
 
-
             ImageView userColor = (ImageView) square.findViewById(R.id.userImage);
-            if(displayTasks.get(i).getMemberColor() == 0)//user.color == 0
+            if(displayTasks.get(i).getMemberColor().equals(Integer.toString(0)))//user.color == 0
             {
                 userColor.setColorFilter(Color.rgb(235,25,25)); //red
             }
-            else if(displayTasks.get(i).getMemberColor() == 1)
+            else if(displayTasks.get(i).getMemberColor().equals(Integer.toString(1)))
             {
                 userColor.setColorFilter(Color.rgb(25,190,25)); //green
             }
-            else if(displayTasks.get(i).getMemberColor() == 2)
+            else if(displayTasks.get(i).getMemberColor().equals(Integer.toString(2)))
             {
                 userColor.setColorFilter(Color.rgb(50,215,200)); //azure
             }
-            else if(displayTasks.get(i).getMemberColor() == 3)
+            else if(displayTasks.get(i).getMemberColor().equals(Integer.toString(3)))
             {
                 userColor.setColorFilter(Color.rgb(0,128,255)); //blue
             }
-            else if(displayTasks.get(i).getMemberColor() == 4)
+            else if(displayTasks.get(i).getMemberColor().equals(Integer.toString(4)))
             {
                 userColor.setColorFilter(Color.rgb(250,190,20)); //orange
             }
-            else if(displayTasks.get(i).getMemberColor() == 5)
+            else if(displayTasks.get(i).getMemberColor().equals(Integer.toString(5)))
             {
                 userColor.setColorFilter(Color.rgb(150,40,250)); //purple
             }
-            else if(displayTasks.get(i).getMemberColor() == 6)
+            else if(displayTasks.get(i).getMemberColor().equals(Integer.toString(6)))
             {
                 userColor.setColorFilter(Color.rgb(225,40,225)); //pink
             }
-            else if(displayTasks.get(i).getMemberColor() == 7)
+            else if(displayTasks.get(i).getMemberColor().equals(Integer.toString(7)))
             {
                 userColor.setColorFilter(Color.rgb(0,0,0)); //black
             }

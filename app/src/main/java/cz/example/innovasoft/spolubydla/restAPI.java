@@ -115,7 +115,7 @@ public class restAPI extends AsyncTask<String, String, JSONObject> {
     protected void addMember() {
 
         MainActivity.member.setGroup_id(MainActivity.group.getId());
-        MainActivity.member.setColor(0);
+        MainActivity.member.setColor("0");
         MainActivity.member.setAdmin(false);
 
         HashMap<String, Object> hashMap = new HashMap<String, Object>();

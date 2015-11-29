@@ -117,8 +117,6 @@ public class WelcomeActivity extends AppCompatActivity {
         //ELSE CO KDYZ NEZADA JMENO GROUP else {}
 
     }
-<<<<<<< HEAD
-
     public void joinGroupeButtonPressed(View view)
     {
         TextView groupC = (TextView) findViewById(R.id.groupCode);
@@ -145,17 +143,10 @@ public class WelcomeActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
 
-            Log.d("Code", Integer.toString(MainActivity.allTasks.size()));
-
-
-            MainActivity.displayTasks(MainActivity.allTasks);
 
             this.finish();
         }
         //ELSE CO KDYZ NEZADA JMENO GROUP else {}
     }
 
-
-=======
->>>>>>> 46eb9b36a2175a86e893bc01b29fa94235547999
 }
