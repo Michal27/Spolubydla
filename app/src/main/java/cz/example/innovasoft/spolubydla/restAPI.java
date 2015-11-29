@@ -65,6 +65,9 @@ public class restAPI extends AsyncTask<String, String, JSONObject> {
         else if (args[0] == "changeName") {
             changeUserName();
         }
+        else if (args[0] == "changeColor") {
+
+        }
 
         return null;
 
@@ -148,6 +151,7 @@ public class restAPI extends AsyncTask<String, String, JSONObject> {
 
         MainActivity.member.setAdmin(false);
         MainActivity.member.setGroup_code(MainActivity.code);
+
         HashMap<String, Object> hashMap = new HashMap<String, Object>();
 
         hashMap.put("member", MainActivity.member);
@@ -319,7 +323,6 @@ public class restAPI extends AsyncTask<String, String, JSONObject> {
 
         String url = "https://spolubydle.herokuapp.com/groups/" + MainActivity.group.getId() + "/tasks.json";
         HttpGet httpGet = new HttpGet(url);
-        Log.d("Code", url);
         httpGet.setHeader("Content-Type", "application/json; charset=utf-8");
 
         try {
@@ -353,7 +356,7 @@ public class restAPI extends AsyncTask<String, String, JSONObject> {
 
         HttpClient httpClient = new DefaultHttpClient();
 
-        HttpPut httpPut = new HttpPut("https://spolubydle.herokuapp.com/members.json");
+        HttpPut httpPut = new HttpPut("https://spolubydle.herokuapp.com/members/" + MainActivity.member.getId() + ".json");
 
         httpPut.setHeader("Content-Type", "application/json; charset=utf-8");
 
@@ -365,6 +368,33 @@ public class restAPI extends AsyncTask<String, String, JSONObject> {
 
         try {
             HttpResponse response = httpClient.execute(httpPut);
+            Log.d("Code", response.getEntity().getContent().toString());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void changeUserColor() {
+
+        HashMap<String, Object> hashMap = new HashMap<String, Object>();
+        hashMap.put("member", MainActivity.member);
+        Type mapType = new TypeToken<HashMap<String, Object>>() {}.getType();
+
+        HttpClient httpClient = new DefaultHttpClient();
+
+        HttpPut httpPut = new HttpPut("https://spolubydle.herokuapp.com/members/" + MainActivity.member.getId() + ".json");
+
+        httpPut.setHeader("Content-Type", "application/json; charset=utf-8");
+
+        try {
+            httpPut.setEntity(new StringEntity(new Gson().toJson(hashMap, mapType)));
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            HttpResponse response = httpClient.execute(httpPut);
+
         } catch (IOException e) {
             e.printStackTrace();
         }

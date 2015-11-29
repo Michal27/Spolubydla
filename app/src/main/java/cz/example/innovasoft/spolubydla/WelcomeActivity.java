@@ -47,9 +47,7 @@ public class WelcomeActivity extends AppCompatActivity {
                 Button createButton = (Button) findViewById(R.id.createGroupeButton);
                 if (groupName.getText().length() != 0) {
                     createButton.setEnabled(true);
-                }
-                else
-                {
+                } else {
                     createButton.setEnabled(false);
                 }
             }
@@ -71,12 +69,9 @@ public class WelcomeActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 AutoCompleteTextView groupCode = (AutoCompleteTextView) findViewById(R.id.groupCode);
                 Button joinButton = (Button) findViewById(R.id.joinGroupButton);
-                if(groupCode.getText().length() != 0)
-                {
+                if (groupCode.getText().length() != 0) {
                     joinButton.setEnabled(true);
-                }
-                else
-                {
+                } else {
                     joinButton.setEnabled(false);
                 }
             }
@@ -143,7 +138,7 @@ public class WelcomeActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
 
-
+            MainActivity.displayTasks(MainActivity.allTasks);
             this.finish();
         }
         //ELSE CO KDYZ NEZADA JMENO GROUP else {}

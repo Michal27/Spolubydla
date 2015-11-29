@@ -37,7 +37,8 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     public static final String PREFS_NAME = "SpolubydlaPrefs";
     public static  DrawerLayout drawer;
-
+    public static  LinearLayout mainContent;
+    public static View square;
     static public Group group;
     static public Member member;
     static public Task actualTask;
@@ -63,6 +64,9 @@ public class MainActivity extends AppCompatActivity
         userTasks = new ArrayList<Task>();
         allTasks = new ArrayList<Task>();
         code = new String();
+        mainContent = (LinearLayout)findViewById(R.id.mainContent);
+
+        square = getLayoutInflater().inflate(R.layout.square_template, null);
 
         if(userId == -1) {
             startActivity(new Intent(MainActivity.this, WelcomeActivity.class));
@@ -88,35 +92,37 @@ public class MainActivity extends AppCompatActivity
                 userName.setText(member.getName());
 
                 ImageView userImage = (ImageView) findViewById(R.id.userImageView);
-                /*if(i == 0)//TADY PROSIMTE DOPLN IF member.getColor == 0 atd....
+                /*
+                Log.d("Code", member.getColor());
+                if(member.getColor().equals(Integer.toString(0)))
                 {
                     userImage.setColorFilter(Color.rgb(235,25,25)); //red
                 }
-                else if(i == 1)
+                else if(member.getColor().equals(Integer.toString(1)))
                 {
                     userImage.setColorFilter(Color.rgb(25,190,25)); //green
                 }
-                else if(i == 2)
+                else if(member.getColor().equals(Integer.toString(2)))
                 {
                     userImage.setColorFilter(Color.rgb(50,215,200)); //azure
                 }
-                else if(i == 3)
+                else if(member.getColor().equals(Integer.toString(3)))
                 {
                     userImage.setColorFilter(Color.rgb(0,128,255)); //blue
                 }
-                else if(i == 4)
+                else if(member.getColor().equals(Integer.toString(4)))
                 {
                     userImage.setColorFilter(Color.rgb(250,190,20)); //orange
                 }
-                else if(i == 5)
+                else if(member.getColor().equals(Integer.toString(5)))
                 {
                     userImage.setColorFilter(Color.rgb(150,40,250)); //purple
                 }
-                else if(i == 6)
+                else if(member.getColor().equals(Integer.toString(6)))
                 {
                     userImage.setColorFilter(Color.rgb(225,40,225)); //pink
                 }
-                else if(i == 7)
+                else if(member.getColor().equals(Integer.toString(7)))
                 {
                     userImage.setColorFilter(Color.rgb(0,0,0)); //black
                 }*/
@@ -182,14 +188,10 @@ public class MainActivity extends AppCompatActivity
     }
 
 
-    public void displayTasks(ArrayList<Task> displayTasks)
+    public static void displayTasks(ArrayList<Task> displayTasks)
     {
 
-        LinearLayout mainContent = (LinearLayout)findViewById(R.id.mainContent);
-
-        mainContent.removeAllViews();
-
-        View square = getLayoutInflater().inflate(R.layout.square_template, null);
+        ((LinearLayout) mainContent).removeAllViews();
 
         for (int i=0; displayTasks.size() > i; i++)
         {
@@ -239,7 +241,9 @@ public class MainActivity extends AppCompatActivity
             }
 
             mainContent.addView(square);
+
             mainContent.invalidate();
         }
+        Log.d("Code", Integer.toString(mainContent.getChildCount()));
     }
 }

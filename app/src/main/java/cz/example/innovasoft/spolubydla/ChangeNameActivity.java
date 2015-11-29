@@ -14,6 +14,10 @@ import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.TextView;
 
+import org.json.JSONObject;
+
+import java.util.concurrent.ExecutionException;
+
 public class ChangeNameActivity extends AppCompatActivity {
 
     @Override
@@ -38,7 +42,17 @@ public class ChangeNameActivity extends AppCompatActivity {
                 this.finish();
                 return true;
             case R.id.action_done:
-                //TADY PROVEST ZMENU JMENA UZIVATELE
+                TextView name = (TextView) findViewById(R.id.userNameChanger);
+                MainActivity.member.setName(name.getText().toString());
+
+                try {
+                    JSONObject js = new restAPI().execute("changeName").get();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                }
+
                 MainActivity.drawer.openDrawer(Gravity.LEFT);
                 this.finish();
 

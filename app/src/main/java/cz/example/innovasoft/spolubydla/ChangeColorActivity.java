@@ -10,6 +10,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import org.json.JSONObject;
+
+import java.util.concurrent.ExecutionException;
+
 public class ChangeColorActivity extends AppCompatActivity {
 
     @Override
@@ -37,56 +41,112 @@ public class ChangeColorActivity extends AppCompatActivity {
 
     public void changeColor0ButtonPressed(View view)
     {
-        //TADY UDELAT ZMENU BARVY UZIVATELE
+        MainActivity.member.setName("0");
+        try {
+            JSONObject js = new restAPI().execute("changeColor").get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
         MainActivity.drawer.openDrawer(Gravity.LEFT);
         this.finish();
     }
 
     public void changeColor1ButtonPressed(View view)
     {
-        //TADY UDELAT ZMENU BARVY UZIVATELE
+        MainActivity.member.setName("1");
+        try {
+            JSONObject js = new restAPI().execute("changeColor").get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
         MainActivity.drawer.openDrawer(Gravity.LEFT);
         this.finish();
     }
 
     public void changeColor2ButtonPressed(View view)
     {
-        //TADY UDELAT ZMENU BARVY UZIVATELE
+        MainActivity.member.setName("2");
+        try {
+            JSONObject js = new restAPI().execute("changeColor").get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
         MainActivity.drawer.openDrawer(Gravity.LEFT);
         this.finish();
     }
 
     public void changeColor3ButtonPressed(View view)
     {
-        //TADY UDELAT ZMENU BARVY UZIVATELE
+        MainActivity.member.setName("3");
+        try {
+            JSONObject js = new restAPI().execute("changeColor").get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
         MainActivity.drawer.openDrawer(Gravity.LEFT);
         this.finish();
     }
 
     public void changeColor4ButtonPressed(View view)
     {
-        //TADY UDELAT ZMENU BARVY UZIVATELE
+        MainActivity.member.setName("4");
+        try {
+            JSONObject js = new restAPI().execute("changeColor").get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
         MainActivity.drawer.openDrawer(Gravity.LEFT);
         this.finish();
     }
 
     public void changeColor5ButtonPressed(View view)
     {
-        //TADY UDELAT ZMENU BARVY UZIVATELE
+        MainActivity.member.setName("5");
+        try {
+            JSONObject js = new restAPI().execute("changeColor").get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
         MainActivity.drawer.openDrawer(Gravity.LEFT);
         this.finish();
     }
 
     public void changeColor6ButtonPressed(View view)
     {
-        //TADY UDELAT ZMENU BARVY UZIVATELE
+        MainActivity.member.setName("6");
+        try {
+            JSONObject js = new restAPI().execute("changeColor").get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
         MainActivity.drawer.openDrawer(Gravity.LEFT);
         this.finish();
     }
 
     public void changeColor7ButtonPressed(View view)
     {
-        //TADY UDELAT ZMENU BARVY UZIVATELE
+        MainActivity.member.setName("7");
+        try {
+            JSONObject js = new restAPI().execute("changeColor").get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
         MainActivity.drawer.openDrawer(Gravity.LEFT);
         this.finish();
     }

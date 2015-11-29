@@ -24,7 +24,7 @@ import java.util.concurrent.ExecutionException;
 public class AddTaskActivity extends AppCompatActivity {
 
     public static List<String> users;
-    //public static ArrayList<String> ids;
+    public static ArrayList<Member> ms;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,10 +40,10 @@ public class AddTaskActivity extends AppCompatActivity {
         Spinner selectUser = (Spinner) findViewById(R.id.whoValue);
 
         users = new ArrayList<String>();
-        //ids = new ArrayList<String>();
+        ms = new ArrayList<Member>();
         for (int i = 0; MainActivity.members.size() > i; i++) {
             users.add(MainActivity.members.get(i).getName());
-            //ids.add(MainActivity.members.get(i).getId());
+            ms.add(MainActivity.members.get(i));
         }
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
@@ -63,7 +63,10 @@ public class AddTaskActivity extends AppCompatActivity {
                 if (textDescription.getText().toString() != "") {
                     MainActivity.actualTask.setDescription(textDescription.getText().toString());
                     Spinner selectUser = (Spinner) findViewById(R.id.whoValue);
-                    Log.d("Code", Integer.toString(selectUser.getId()));
+                    Integer pos = Integer.valueOf(selectUser.getSelectedItemPosition());
+                    MainActivity.actualTask.setMember_color(MainActivity.members.get(pos).getColor());
+                    MainActivity.actualTask.setMember_id(MainActivity.members.get(pos).getId());
+                    MainActivity.actualTask.setMemberName(MainActivity.members.get(pos).getName());
                     try {
                         JSONObject js = new restAPI().execute("addTask").get();
                     } catch (InterruptedException e) {
@@ -82,7 +85,7 @@ public class AddTaskActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
 
-                    Log.d("Code", Integer.toString(MainActivity.allTasks.size()));
+                    MainActivity.displayTasks(MainActivity.allTasks);
 
                     this.finish();
                 }
