@@ -127,11 +127,6 @@ public class MainActivity extends AppCompatActivity
                     userImage.setColorFilter(Color.rgb(0,0,0)); //black
                 }*/
             }
-
-            /*@Override
-            public void onDrawerOpened(View drawerView) {
-
-            }*/
         };
         drawer.setDrawerListener(toggle);
         toggle.syncState();
