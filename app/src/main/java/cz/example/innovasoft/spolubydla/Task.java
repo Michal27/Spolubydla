@@ -17,6 +17,8 @@ public class Task {
 
     String member_name;
 
+    Integer member_color;
+
     String points;
 
     public String getDescription() {
@@ -40,6 +42,8 @@ public class Task {
     }
 
     public String getMemberName() {return this.member_name; }
+
+    public Integer getMemberColor() {return this.member_color; }
 
     public String getPoints() { return this.points;}
 
@@ -66,6 +70,8 @@ public class Task {
     public void setId(String id) {
         this.id = id;
     }
+
+    public void setMember_color(Integer member_color) { this.member_color = member_color; }
 
     public void Clear() {
         this.id = "";

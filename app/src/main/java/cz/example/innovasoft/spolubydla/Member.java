@@ -13,7 +13,7 @@ public class Member {
 
     public Boolean admin;
 
-    public String color;
+    public Integer color;
 
     public String group_code;
 
@@ -33,7 +33,7 @@ public class Member {
         return this.id;
     }
 
-    public String getColor() { return this.color; }
+    public Integer getColor() { return this.color; }
 
     public String getGroup_code() { return this.group_code; }
 
@@ -54,6 +54,6 @@ public class Member {
         this.id = id;
     }
 
-    public void setColor(String color) { this.color = color; }
+    public void setColor(Integer color) { this.color = color; }
 
 }

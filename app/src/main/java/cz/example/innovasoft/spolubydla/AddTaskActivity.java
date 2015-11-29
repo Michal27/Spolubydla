@@ -9,16 +9,21 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 public class AddTaskActivity extends AppCompatActivity {
 
-    public List<String> users;
+    public static List<String> users;
+    //public static ArrayList<String> ids;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,15 +39,15 @@ public class AddTaskActivity extends AppCompatActivity {
         Spinner selectUser = (Spinner) findViewById(R.id.whoValue);
 
         users = new ArrayList<String>();
-
+        //ids = new ArrayList<String>();
         for (int i = 0; MainActivity.members.size() > i; i++) {
             users.add(MainActivity.members.get(i).getName());
+            //ids.add(MainActivity.members.get(i).getId());
         }
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_dropdown_item, users);
         selectUser.setAdapter(adapter);
-
 
     }
 
@@ -56,7 +61,15 @@ public class AddTaskActivity extends AppCompatActivity {
                 TextView textDescription = (TextView) findViewById(R.id.taskDescription);
                 if (textDescription.getText().toString() != "") {
                     MainActivity.actualTask.setDescription(textDescription.getText().toString());
-                    new restAPI().execute("addTask");
+                    Spinner selectUser = (Spinner) findViewById(R.id.whoValue);
+                    Log.d("Code", Integer.toString(selectUser.getId()));
+                    try {
+                        JSONObject js = new restAPI().execute("addTask").get();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    } catch (ExecutionException e) {
+                        e.printStackTrace();
+                    }
                     this.finish();
                 }
 
