@@ -10,11 +10,15 @@
         </menu>
     </item>
 
-    <item android:id="@+id/nav_showCode" android:icon="@drawable/ic_action_link"
-        android:title="Nastavení" />
+    <item android:title="Skupina">
+        <menu>
+            <item android:id="@+id/nav_showCode" android:icon="@drawable/ic_action_link"
+                android:title="Získat odkaz pro připojení" />
 
-    <item android:id="@+id/nav_settings" android:icon="@drawable/ic_settings"
-        android:title="Nastavení" />
+            <item android:id="@+id/nav_settings" android:icon="@drawable/ic_settings"
+                android:title="Nastavení" />
+        </menu>
+    </item>
 
 
 

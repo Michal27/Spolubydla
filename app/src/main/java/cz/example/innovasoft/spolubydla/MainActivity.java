@@ -11,6 +11,8 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -24,11 +26,14 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     public static final String PREFS_NAME = "SpolubydlaPrefs";
+    public static  DrawerLayout drawer;
 
     static public Group group;
     static public Member member;
@@ -66,7 +71,53 @@ public class MainActivity extends AppCompatActivity
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
+        {
+            @Override
+            public void onDrawerStateChanged(int newState) {
+                TextView userName = (TextView) findViewById(R.id.userNameView);
+                userName.setText(member.getName());
+
+                ImageView userImage = (ImageView) findViewById(R.id.userImageView);
+                /*if(i == 0)//TADY PROSIMTE DOPLN IF member.getColor == 0 atd....
+                {
+                    userImage.setColorFilter(Color.rgb(235,25,25)); //red
+                }
+                else if(i == 1)
+                {
+                    userImage.setColorFilter(Color.rgb(25,190,25)); //green
+                }
+                else if(i == 2)
+                {
+                    userImage.setColorFilter(Color.rgb(50,215,200)); //azure
+                }
+                else if(i == 3)
+                {
+                    userImage.setColorFilter(Color.rgb(0,128,255)); //blue
+                }
+                else if(i == 4)
+                {
+                    userImage.setColorFilter(Color.rgb(250,190,20)); //orange
+                }
+                else if(i == 5)
+                {
+                    userImage.setColorFilter(Color.rgb(150,40,250)); //purple
+                }
+                else if(i == 6)
+                {
+                    userImage.setColorFilter(Color.rgb(225,40,225)); //pink
+                }
+                else if(i == 7)
+                {
+                    userImage.setColorFilter(Color.rgb(0,0,0)); //black
+                }*/
+            }
+
+            /*@Override
+            public void onDrawerOpened(View drawerView) {
+
+            }*/
+        };
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
@@ -96,18 +147,28 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
+        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
 
         if (id == R.id.nav_settings)
         {
             startActivity(new Intent(MainActivity.this, SettingsActivity.class));
+            drawer.closeDrawer(GravityCompat.START);
         }
         else if(id == R.id.nav_showCode)
         {
             //TADY ZOBRAZIT KOD
         }
+        else if(id == R.id.nav_userName)
+        {
+            drawer.closeDrawer(GravityCompat.START);
+            startActivity(new Intent(MainActivity.this, ChangeNameActivity.class));
+        }
+        else if(id == R.id.nav_userColor)
+        {
+            drawer.closeDrawer(GravityCompat.START);
+            startActivity(new Intent(MainActivity.this, ChangeColorActivity.class));
+        }
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
         return true;
     }
 

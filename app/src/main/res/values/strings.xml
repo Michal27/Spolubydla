@@ -9,4 +9,6 @@
     <string name="title_activity_settings">Nastavení</string>
     <string name="title_activity_add_task">Přidat úkol</string>
     <string name="title_activity_welcome">Vítejte</string>
+    <string name="title_activity_change_name">Změnit jméno</string>
+    <string name="title_activity_change_color">Změnit barvu</string>
 </resources>
