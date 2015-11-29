@@ -1,7 +1,9 @@
 package cz.example.innovasoft.spolubydla;
 
 import android.app.ActionBar;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -23,6 +25,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.ViewGroup;
+import android.widget.AutoCompleteTextView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -162,7 +165,21 @@ public class MainActivity extends AppCompatActivity
         }
         else if(id == R.id.nav_showCode)
         {
-            //TADY ZOBRAZIT KOD
+            /*final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            LayoutInflater inflater = this.getLayoutInflater();
+            View myCodeView = inflater.inflate(R.layout.code_dialog, null);
+            builder.setView(myCodeView)
+                    .setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int id) {
+
+                        }
+                    });
+            builder.create();
+            builder.show();
+
+            TextView codeText = (TextView) myCodeView.findViewById(R.id.codeText);
+            codeText.setText(MainActivity.code);*/
         }
         else if(id == R.id.nav_userName)
         {
