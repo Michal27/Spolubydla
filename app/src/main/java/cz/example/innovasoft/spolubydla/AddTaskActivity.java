@@ -91,7 +91,7 @@ public class AddTaskActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
 
-                    MainActivity.displayTasks(MainActivity.allTasks);
+                    //MainActivity.displayTasks(MainActivity.allTasks);
 
                     this.finish();
                 }
