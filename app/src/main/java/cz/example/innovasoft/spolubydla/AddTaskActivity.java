@@ -2,7 +2,9 @@ package cz.example.innovasoft.spolubydla;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -91,7 +93,7 @@ public class AddTaskActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
 
-                    //MainActivity.displayTasks(MainActivity.allTasks);
+                    LocalBroadcastManager.getInstance(this).sendBroadcast(new Intent("activity-2-initialized"));
 
                     this.finish();
                 }
@@ -134,7 +136,7 @@ public class AddTaskActivity extends AppCompatActivity {
         calendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             public void onSelectedDayChange(CalendarView view, int year, int month, int dayOfMonth) {
                 AddTaskActivity.day = dayOfMonth;
-                AddTaskActivity.month = month+1;
+                AddTaskActivity.month = month + 1;
                 AddTaskActivity.year = year;
             }
         });
