@@ -45,8 +45,9 @@ public class restAPI extends AsyncTask<String, String, JSONObject> {
 
         if (args[0] == "addGroup") {
             addGroup();
+        }
+        else if (args[0] == "addMember") {
             addMember();
-            getMembers();
         }
         else if (args[0] == "addTask") {
             addTask();
@@ -60,13 +61,12 @@ public class restAPI extends AsyncTask<String, String, JSONObject> {
         }
         else if (args[0] == "joinGroup") {
             joinMember();
-            getMembers();
         }
         else if (args[0] == "changeName") {
             changeUserName();
         }
         else if (args[0] == "changeColor") {
-
+            changeUserColor();
         }
 
         return null;
@@ -113,11 +113,11 @@ public class restAPI extends AsyncTask<String, String, JSONObject> {
 
         MainActivity.group.setId(objs.getId());
         MainActivity.group.setCode(objs.getCode());
+        MainActivity.code = objs.getCode();
     }
 
     protected void addMember() {
-
-        MainActivity.member.setGroup_id(MainActivity.group.getId());
+        MainActivity.member.setGroup_code(MainActivity.code);
         MainActivity.member.setColor("0");
         MainActivity.member.setAdmin(false);
 
@@ -368,7 +368,6 @@ public class restAPI extends AsyncTask<String, String, JSONObject> {
 
         try {
             HttpResponse response = httpClient.execute(httpPut);
-            Log.d("Code", response.getEntity().getContent().toString());
         } catch (IOException e) {
             e.printStackTrace();
         }

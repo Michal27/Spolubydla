@@ -37,8 +37,6 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     public static final String PREFS_NAME = "SpolubydlaPrefs";
     public static  DrawerLayout drawer;
-    public static  LinearLayout mainContent;
-    public static View square;
     static public Group group;
     static public Member member;
     static public Task actualTask;
@@ -64,9 +62,6 @@ public class MainActivity extends AppCompatActivity
         userTasks = new ArrayList<Task>();
         allTasks = new ArrayList<Task>();
         code = new String();
-        mainContent = (LinearLayout)findViewById(R.id.mainContent);
-
-        square = getLayoutInflater().inflate(R.layout.square_template, null);
 
         if(userId == -1) {
             startActivity(new Intent(MainActivity.this, WelcomeActivity.class));
@@ -184,14 +179,15 @@ public class MainActivity extends AppCompatActivity
     }
 
 
-    public static void displayTasks(ArrayList<Task> displayTasks)
+    public void displayTasks(ArrayList<Task> displayTasks)
     {
 
-        ((LinearLayout) mainContent).removeAllViews();
+        LinearLayout mainContent = (LinearLayout)findViewById(R.id.mainContent);
+        mainContent.removeAllViews();
 
         for (int i=0; displayTasks.size() > i; i++)
         {
-
+            View square = getLayoutInflater().inflate(R.layout.square_template, null);
             displayTasks.get(i).setMember_color("1"); //toto pak odkráglovat
             TextView taskName = (TextView) square.findViewById(R.id.taskName);
             taskName.setText(displayTasks.get(i).getDescription());
@@ -237,9 +233,7 @@ public class MainActivity extends AppCompatActivity
             }
 
             mainContent.addView(square);
-
             mainContent.invalidate();
         }
-        Log.d("Code", Integer.toString(mainContent.getChildCount()));
     }
 }

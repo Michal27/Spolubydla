@@ -106,7 +106,20 @@ public class WelcomeActivity extends AppCompatActivity {
             } catch (ExecutionException e) {
                 e.printStackTrace();
             }
-
+            try {
+                JSONObject js = new restAPI().execute("addMember").get();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
+            try {
+                JSONObject js = new restAPI().execute("getMembers").get();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
             this.finish();
         }
         //ELSE CO KDYZ NEZADA JMENO GROUP else {}
@@ -129,7 +142,13 @@ public class WelcomeActivity extends AppCompatActivity {
             } catch (ExecutionException e) {
                 e.printStackTrace();
             }
-
+            try {
+                JSONObject js = new restAPI().execute("getMembers").get();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
             try {
                 JSONObject js = new restAPI().execute("getTasks").get();
             } catch (InterruptedException e) {
@@ -138,7 +157,7 @@ public class WelcomeActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
 
-            MainActivity.displayTasks(MainActivity.allTasks);
+            //MainActivity.displayTasks(MainActivity.allTasks);
             this.finish();
         }
         //ELSE CO KDYZ NEZADA JMENO GROUP else {}
