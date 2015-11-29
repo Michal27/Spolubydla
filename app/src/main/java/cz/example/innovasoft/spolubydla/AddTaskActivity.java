@@ -2,10 +2,7 @@ package cz.example.innovasoft.spolubydla;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -19,15 +16,21 @@ import android.widget.CalendarView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 public class AddTaskActivity extends AppCompatActivity {
 
-    public List<String> users;
     public static int day;
     public static int month;
     public static int year;
+
+    public static List<String> users;
+    //public static ArrayList<String> ids;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,15 +46,15 @@ public class AddTaskActivity extends AppCompatActivity {
         Spinner selectUser = (Spinner) findViewById(R.id.whoValue);
 
         users = new ArrayList<String>();
-
+        //ids = new ArrayList<String>();
         for (int i = 0; MainActivity.members.size() > i; i++) {
             users.add(MainActivity.members.get(i).getName());
+            //ids.add(MainActivity.members.get(i).getId());
         }
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_dropdown_item, users);
         selectUser.setAdapter(adapter);
-
 
     }
 
@@ -65,7 +68,28 @@ public class AddTaskActivity extends AppCompatActivity {
                 TextView textDescription = (TextView) findViewById(R.id.taskDescription);
                 if (textDescription.getText().toString() != "") {
                     MainActivity.actualTask.setDescription(textDescription.getText().toString());
-                    new restAPI().execute("addTask");
+                    Spinner selectUser = (Spinner) findViewById(R.id.whoValue);
+                    Log.d("Code", Integer.toString(selectUser.getId()));
+                    try {
+                        JSONObject js = new restAPI().execute("addTask").get();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    } catch (ExecutionException e) {
+                        e.printStackTrace();
+                    }
+                    MainActivity.allTasks = new ArrayList<>();
+                    MainActivity.userTasks = new ArrayList<>();
+
+                    try {
+                        JSONObject js = new restAPI().execute("getTasks").get();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    } catch (ExecutionException e) {
+                        e.printStackTrace();
+                    }
+
+                    Log.d("Code", Integer.toString(MainActivity.allTasks.size()));
+
                     this.finish();
                 }
 
