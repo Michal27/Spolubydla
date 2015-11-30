@@ -110,6 +110,8 @@ public class AddTaskActivity extends AppCompatActivity {
                     MainActivity.actualTask.due_date.setMonth(Integer.toString(AddTaskActivity.month));
                     MainActivity.actualTask.due_date.setDay(Integer.toString(AddTaskActivity.day));
 
+                    MainActivity.actualTask.setPoints(Integer.toString(pointsValue));
+
                     try {
                         JSONObject js = new restAPI().execute("addTask").get();
                     } catch (InterruptedException e) {
