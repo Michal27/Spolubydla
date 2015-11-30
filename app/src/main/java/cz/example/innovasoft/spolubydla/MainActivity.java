@@ -1,8 +1,10 @@
 package cz.example.innovasoft.spolubydla;
 
 import android.app.ActionBar;
+import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
@@ -26,6 +28,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.ViewGroup;
+import android.widget.AutoCompleteTextView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -184,6 +187,27 @@ public class MainActivity extends AppCompatActivity
         tabLayout.addTab(tabLayout.newTab().setText("Všechny"));
         tabLayout.addTab(tabLayout.newTab().setText("Žebříček"));
 
+        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                int position = tab.getPosition();
+                if(position == 0)
+                    displayTasks(userTasks);
+                else if(position == 1)
+                    displayTasks(allTasks);
+                else if(position == 2)
+                    displayRanks(members);
+            }
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+                int position = tab.getPosition();
+            }
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab){
+                int position = tab.getPosition();
+            }
+        });
+
         BroadcastReceiver receiver = new BroadcastReceiver() {
 
             @Override
@@ -218,7 +242,21 @@ public class MainActivity extends AppCompatActivity
         }
         else if(id == R.id.nav_showCode)
         {
-            //TADY ZOBRAZIT KOD
+            final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            LayoutInflater inflater = this.getLayoutInflater();
+            View myCodeView = inflater.inflate(R.layout.code_dialog, null);
+            builder.setView(myCodeView)
+                    .setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int id) {
+
+                        }
+                    });
+            builder.create();
+            builder.show();
+
+            AutoCompleteTextView codeText = (AutoCompleteTextView) myCodeView.findViewById(R.id.codeText);
+            codeText.setText(MainActivity.code);
         }
         else if(id == R.id.nav_userName)
         {
@@ -298,6 +336,7 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+
     public void findMember(String id) {
         for (int i = 0; members.size() > i; i++) {
             if (id.equals(members.get(i).getId())) {
@@ -305,6 +344,60 @@ public class MainActivity extends AppCompatActivity
                 actualMember.setColor(members.get(i).getColor());
                 return;
             }
+        }
+    }
+    
+    public void displayRanks(ArrayList<Member> displayMembers)
+    {
+        LinearLayout mainContent = (LinearLayout)findViewById(R.id.mainContent);
+        mainContent.removeAllViews();
+
+        for (int i=0; displayMembers.size() > i; i++)
+        {
+            View square = getLayoutInflater().inflate(R.layout.square_template, null);
+
+            TextView user = (TextView) square.findViewById(R.id.taskName);
+            user.setText(displayMembers.get(i).getName());
+
+            TextView taskPoints = (TextView) square.findViewById(R.id.taskPoints);
+            //taskPoints.setText(displayMembers.get(i).getTotalPoints()); TADY PRIDAT VYPIS VSECH BODU MEMBERA
+
+            ImageView userColor = (ImageView) square.findViewById(R.id.userImage); //A TADY UDELAT BARVY JEDNOTLIVYCH MEMBERU
+            /*if(displayMembers.get(i).getMemberColor().equals(Integer.toString(0)))//user.color == 0
+            {
+                userColor.setColorFilter(Color.rgb(235,25,25)); //red
+            }
+            else if(displayTasks.get(i).getMemberColor().equals(Integer.toString(1)))
+            {
+                userColor.setColorFilter(Color.rgb(25,190,25)); //green
+            }
+            else if(displayTasks.get(i).getMemberColor().equals(Integer.toString(2)))
+            {
+                userColor.setColorFilter(Color.rgb(50,215,200)); //azure
+            }
+            else if(displayTasks.get(i).getMemberColor().equals(Integer.toString(3)))
+            {
+                userColor.setColorFilter(Color.rgb(0,128,255)); //blue
+            }
+            else if(displayTasks.get(i).getMemberColor().equals(Integer.toString(4)))
+            {
+                userColor.setColorFilter(Color.rgb(250,190,20)); //orange
+            }
+            else if(displayTasks.get(i).getMemberColor().equals(Integer.toString(5)))
+            {
+                userColor.setColorFilter(Color.rgb(150,40,250)); //purple
+            }
+            else if(displayTasks.get(i).getMemberColor().equals(Integer.toString(6)))
+            {
+                userColor.setColorFilter(Color.rgb(225,40,225)); //pink
+            }
+            else if(displayTasks.get(i).getMemberColor().equals(Integer.toString(7)))
+            {
+                userColor.setColorFilter(Color.rgb(0,0,0)); //black
+            }*/
+
+            mainContent.addView(square);
+            mainContent.invalidate();
         }
     }
 }
