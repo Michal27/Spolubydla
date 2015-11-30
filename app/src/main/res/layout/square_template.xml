@@ -70,10 +70,28 @@
                     android:layout_width="15dp"
                     android:layout_height="match_parent"/>
 
-                <TextView
+                <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent" >
+
+                    <TextView
                         android:id="@+id/taskUser"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content" />
+                    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                        android:orientation="horizontal" android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentTop="true">
+                        <TextView
+                            android:id="@+id/taskDate"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                        <Space
+                            android:layout_width="20dp"
+                            android:layout_height="match_parent"/>
+                    </LinearLayout>
+                </RelativeLayout>
 
             </LinearLayout>
 

@@ -70,6 +70,7 @@ public class MainActivity extends AppCompatActivity
         allTasks = new ArrayList<Task>();
         code = new String();
         actualMember= new Member();
+        actualTask.due_date = new MyDate();
 
         actualTask.due_date = new MyDate();
 
@@ -291,6 +292,9 @@ public class MainActivity extends AppCompatActivity
             TextView taskPoints = (TextView) square.findViewById(R.id.taskPoints);
             taskPoints.setText(displayTasks.get(i).getPoints());
 
+            TextView taskDate = (TextView) square.findViewById(R.id.taskDate);
+            taskDate.setText(displayTasks.get(i).getDueDate().getDay() + "." + displayTasks.get(i).getDueDate().getMonth() + "." + displayTasks.get(i).getDueDate().getYear());
+
             ImageView userColor = (ImageView) square.findViewById(R.id.userImage);
             if(actualMember.getColor().equals(Integer.toString(0)))//user.color == 0
             {
@@ -324,6 +328,8 @@ public class MainActivity extends AppCompatActivity
             {
                 userColor.setColorFilter(Color.rgb(0,0,0)); //black
             }
+
+
 
             mainContent.addView(square);
             mainContent.invalidate();
