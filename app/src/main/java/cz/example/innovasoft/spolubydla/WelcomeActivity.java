@@ -129,6 +129,7 @@ public class WelcomeActivity extends AppCompatActivity {
             editor.putInt("userId", Integer.parseInt(MainActivity.member.getId()));
 
             editor.commit();*/
+            Log.d("Code", Integer.toString(MainActivity.members.size()));
             this.finish();
         }
         //ELSE CO KDYZ NEZADA JMENO GROUP else {}

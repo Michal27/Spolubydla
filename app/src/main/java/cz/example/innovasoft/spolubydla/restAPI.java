@@ -192,7 +192,7 @@ public class restAPI extends AsyncTask<String, String, JSONObject> {
         Reader r = new InputStreamReader(data);
 
         Member objs = gson.fromJson(r, Member.class);
-        
+
         MainActivity.member.setId(objs.getId());
     }
 
@@ -229,19 +229,17 @@ public class restAPI extends AsyncTask<String, String, JSONObject> {
 
         try {
             httpPost.setEntity(new StringEntity(new Gson().toJson(hashMap, mapType)));
+
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-
         try {
             HttpResponse response = httpClient.execute(httpPost);
-            MainActivity.actualTask.setId(getIdTask(response.getEntity().getContent()));
+            //MainActivity.actualTask.setId(getIdTask(response.getEntity().getContent()));
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        MainActivity.allTasks.add(MainActivity.actualTask);
-        MainActivity.actualTask.Clear();
     }
 
     protected String getIdTask(InputStream data) {
@@ -317,7 +315,10 @@ public class restAPI extends AsyncTask<String, String, JSONObject> {
             JsonArray jArray = parser.parse(r).getAsJsonArray();
 
             for(JsonElement obj : jArray ) {
+
+                Log.d("Code", obj.toString());
                 Task t = gson.fromJson(obj, Task.class);
+
                 MainActivity.userTasks.add(t);
             }
         }
