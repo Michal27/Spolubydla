@@ -70,13 +70,11 @@ public class MainActivity extends AppCompatActivity
         allTasks = new ArrayList<Task>();
         code = new String();
         actualMember= new Member();
-        actualTask.due_date = new MyDate();
 
-        actualTask.due_date = new MyDate();
 
         if(userId == -1) {
             startActivity(new Intent(MainActivity.this, WelcomeActivity.class));
-        }
+        }/*
         else {
             try {
                 JSONObject js = new restAPI().execute("getMembers").get();
@@ -116,7 +114,7 @@ public class MainActivity extends AppCompatActivity
             }
             displayTasks(allTasks);
         }
-
+*/
         final ActionBar actionBar = getActionBar();
         // Specify that tabs should be displayed in the action bar.
 

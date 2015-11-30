@@ -192,8 +192,7 @@ public class restAPI extends AsyncTask<String, String, JSONObject> {
         Reader r = new InputStreamReader(data);
 
         Member objs = gson.fromJson(r, Member.class);
-
-        MainActivity.member.setColor(objs.getColor());
+        
         MainActivity.member.setId(objs.getId());
     }
 
