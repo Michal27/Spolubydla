@@ -31,6 +31,7 @@ public class ChangeColorActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
+                MainActivity.drawer.openDrawer(Gravity.LEFT);
                 this.finish();
                 return true;
 
