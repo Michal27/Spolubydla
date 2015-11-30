@@ -122,7 +122,9 @@ public class WelcomeActivity extends AppCompatActivity {
                 e.printStackTrace();
             } catch (ExecutionException e) {
                 e.printStackTrace();
-            }/*
+            }
+            this.finish();
+            /*
             SharedPreferences settings = getSharedPreferences(MainActivity.PREFS_NAME, 0);
             SharedPreferences.Editor editor = settings.edit();
             editor.putInt("userId", Integer.parseInt(MainActivity.member.getId()));

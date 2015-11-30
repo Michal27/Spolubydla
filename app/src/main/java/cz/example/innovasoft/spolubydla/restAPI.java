@@ -53,6 +53,7 @@ public class restAPI extends AsyncTask<String, String, JSONObject> {
             addTask();
         }
         else if (args[0] == "getMembers") {
+            MainActivity.members = new ArrayList<>();
             getMembers();
         }
         else if (args[0] == "getTasks") {
@@ -192,8 +193,8 @@ public class restAPI extends AsyncTask<String, String, JSONObject> {
 
         Member objs = gson.fromJson(r, Member.class);
 
-        MainActivity.member.setId(objs.getId());
         MainActivity.member.setColor(objs.getColor());
+        MainActivity.member.setId(objs.getId());
     }
 
     protected void JSONParseJoinMember(InputStream data) {
@@ -269,6 +270,7 @@ public class restAPI extends AsyncTask<String, String, JSONObject> {
             HttpResponse response = httpClient.execute(httpGet);
             data = response.getEntity().getContent();
 
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -280,6 +282,8 @@ public class restAPI extends AsyncTask<String, String, JSONObject> {
             JsonParser parser = new JsonParser();
 
             JsonArray jArray = parser.parse(r).getAsJsonArray();
+
+
 
             for(JsonElement obj : jArray ) {
                 Member m = gson.fromJson(obj, Member.class);

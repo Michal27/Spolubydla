@@ -140,8 +140,8 @@ public class MainActivity extends AppCompatActivity
                 userName.setText(member.getName());
 
                 ImageView userImage = (ImageView) findViewById(R.id.userImageView);
-                /*
-                Log.d("Code", member.getColor());
+
+
                 if(member.getColor().equals(Integer.toString(0)))
                 {
                     userImage.setColorFilter(Color.rgb(235,25,25)); //red
@@ -173,7 +173,7 @@ public class MainActivity extends AppCompatActivity
                 else if(member.getColor().equals(Integer.toString(7)))
                 {
                     userImage.setColorFilter(Color.rgb(0,0,0)); //black
-                }*/
+                }
             }
         };
         drawer.setDrawerListener(toggle);
@@ -285,8 +285,7 @@ public class MainActivity extends AppCompatActivity
 
             View square = getLayoutInflater().inflate(R.layout.square_template, null);
 
-            if (actualMember.getColor() == null)
-                actualMember.setColor("1"); //toto pak odkráglovat
+            Log.d("Code", "NARVA" + actualMember.getColor());
 
             TextView taskName = (TextView) square.findViewById(R.id.taskName);
             taskName.setText(displayTasks.get(i).getDescription());

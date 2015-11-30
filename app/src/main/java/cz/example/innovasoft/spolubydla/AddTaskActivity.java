@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -75,6 +74,13 @@ public class AddTaskActivity extends AppCompatActivity {
 
                     MainActivity.actualTask.setMember_id(MainActivity.members.get(pos).getId());
 
+                    MyDate myDate = new MyDate();
+
+                    myDate.setDay(Integer.toString(AddTaskActivity.day));
+                    myDate.setMonth(Integer.toString(AddTaskActivity.month));
+                    myDate.setYear(Integer.toString(AddTaskActivity.year));
+
+                    MainActivity.actualTask.setDue_date(myDate);
 
                     //Log.d("Code",MainActivity.actualTask.getMemberColor());
                     try {

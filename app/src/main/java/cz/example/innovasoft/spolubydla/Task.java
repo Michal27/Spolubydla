@@ -11,18 +11,13 @@ public class Task {
 
     String description;
 
-    String due_date;
 
     String member_id;
 
 
     String points;
 
-    int day;
-
-    int month;
-
-    int year;
+    MyDate due_date;
 
     public String getDescription() {
         return this.description;
@@ -32,7 +27,7 @@ public class Task {
         return this.group_id;
     }
 
-    public String getDueDate() {
+    public MyDate getDueDate() {
         return this.due_date;
     }
 
@@ -46,18 +41,6 @@ public class Task {
 
     public String getPoints() { return this.points;}
 
-    public int getDay() { return this.day;}
-
-    public int getMonth() { return this.month; }
-
-    public int getYear() { return this.year; }
-
-    public void setDay(int day) { this.day = day; }
-
-    public void setYear(int year) { this.year = year; }
-
-    public void setMonth(int month) { this.month = month;}
-
     public void setPoints( String points) { this.points = points;}
 
 
@@ -65,7 +48,7 @@ public class Task {
         this.group_id = group_id;
     }
 
-    public void setDue_date(String due_date) {
+    public void setDue_date(MyDate due_date) {
         this.due_date = due_date;
     }
 
@@ -86,6 +69,5 @@ public class Task {
         this.group_id = "";
         this.member_id = "";
         this.description = "";
-        this.due_date = "";
     }
 }
