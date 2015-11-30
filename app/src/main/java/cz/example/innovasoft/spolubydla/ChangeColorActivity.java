@@ -1,8 +1,10 @@
 package cz.example.innovasoft.spolubydla;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
@@ -41,7 +43,7 @@ public class ChangeColorActivity extends AppCompatActivity {
 
     public void changeColor0ButtonPressed(View view)
     {
-        MainActivity.member.setName("0");
+        MainActivity.member.setColor("0");
         try {
             JSONObject js = new restAPI().execute("changeColor").get();
         } catch (InterruptedException e) {
@@ -49,13 +51,21 @@ public class ChangeColorActivity extends AppCompatActivity {
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
+        try {
+            JSONObject js = new restAPI().execute("getMembers").get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        LocalBroadcastManager.getInstance(this).sendBroadcast(new Intent("activity-2-initialized"));
         MainActivity.drawer.openDrawer(Gravity.LEFT);
         this.finish();
     }
 
     public void changeColor1ButtonPressed(View view)
     {
-        MainActivity.member.setName("1");
+        MainActivity.member.setColor("1");
         try {
             JSONObject js = new restAPI().execute("changeColor").get();
         } catch (InterruptedException e) {
@@ -63,13 +73,21 @@ public class ChangeColorActivity extends AppCompatActivity {
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
+        try {
+            JSONObject js = new restAPI().execute("getMembers").get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        LocalBroadcastManager.getInstance(this).sendBroadcast(new Intent("activity-2-initialized"));
         MainActivity.drawer.openDrawer(Gravity.LEFT);
         this.finish();
     }
 
     public void changeColor2ButtonPressed(View view)
     {
-        MainActivity.member.setName("2");
+        MainActivity.member.setColor("2");
         try {
             JSONObject js = new restAPI().execute("changeColor").get();
         } catch (InterruptedException e) {
@@ -77,13 +95,21 @@ public class ChangeColorActivity extends AppCompatActivity {
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
+        try {
+            JSONObject js = new restAPI().execute("getMembers").get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        LocalBroadcastManager.getInstance(this).sendBroadcast(new Intent("activity-2-initialized"));
         MainActivity.drawer.openDrawer(Gravity.LEFT);
         this.finish();
     }
 
     public void changeColor3ButtonPressed(View view)
     {
-        MainActivity.member.setName("3");
+        MainActivity.member.setColor("3");
         try {
             JSONObject js = new restAPI().execute("changeColor").get();
         } catch (InterruptedException e) {
@@ -91,13 +117,21 @@ public class ChangeColorActivity extends AppCompatActivity {
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
+        try {
+            JSONObject js = new restAPI().execute("getMembers").get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        LocalBroadcastManager.getInstance(this).sendBroadcast(new Intent("activity-2-initialized"));
         MainActivity.drawer.openDrawer(Gravity.LEFT);
         this.finish();
     }
 
     public void changeColor4ButtonPressed(View view)
     {
-        MainActivity.member.setName("4");
+        MainActivity.member.setColor("4");
         try {
             JSONObject js = new restAPI().execute("changeColor").get();
         } catch (InterruptedException e) {
@@ -105,13 +139,21 @@ public class ChangeColorActivity extends AppCompatActivity {
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
+        try {
+            JSONObject js = new restAPI().execute("getMembers").get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        LocalBroadcastManager.getInstance(this).sendBroadcast(new Intent("activity-2-initialized"));
         MainActivity.drawer.openDrawer(Gravity.LEFT);
         this.finish();
     }
 
     public void changeColor5ButtonPressed(View view)
     {
-        MainActivity.member.setName("5");
+        MainActivity.member.setColor("5");
         try {
             JSONObject js = new restAPI().execute("changeColor").get();
         } catch (InterruptedException e) {
@@ -119,13 +161,21 @@ public class ChangeColorActivity extends AppCompatActivity {
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
+        try {
+            JSONObject js = new restAPI().execute("getMembers").get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        LocalBroadcastManager.getInstance(this).sendBroadcast(new Intent("activity-2-initialized"));
         MainActivity.drawer.openDrawer(Gravity.LEFT);
         this.finish();
     }
 
     public void changeColor6ButtonPressed(View view)
     {
-        MainActivity.member.setName("6");
+        MainActivity.member.setColor("6");
         try {
             JSONObject js = new restAPI().execute("changeColor").get();
         } catch (InterruptedException e) {
@@ -133,13 +183,21 @@ public class ChangeColorActivity extends AppCompatActivity {
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
+        try {
+            JSONObject js = new restAPI().execute("getMembers").get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        LocalBroadcastManager.getInstance(this).sendBroadcast(new Intent("activity-2-initialized"));
         MainActivity.drawer.openDrawer(Gravity.LEFT);
         this.finish();
     }
 
     public void changeColor7ButtonPressed(View view)
     {
-        MainActivity.member.setName("7");
+        MainActivity.member.setColor("7");
         try {
             JSONObject js = new restAPI().execute("changeColor").get();
         } catch (InterruptedException e) {
@@ -147,6 +205,14 @@ public class ChangeColorActivity extends AppCompatActivity {
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
+        try {
+            JSONObject js = new restAPI().execute("getMembers").get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        LocalBroadcastManager.getInstance(this).sendBroadcast(new Intent("activity-2-initialized"));
         MainActivity.drawer.openDrawer(Gravity.LEFT);
         this.finish();
     }

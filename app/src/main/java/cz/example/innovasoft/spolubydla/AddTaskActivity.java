@@ -72,9 +72,11 @@ public class AddTaskActivity extends AppCompatActivity {
                     MainActivity.actualTask.setDescription(textDescription.getText().toString());
                     Spinner selectUser = (Spinner) findViewById(R.id.whoValue);
                     Integer pos = Integer.valueOf(selectUser.getSelectedItemPosition());
-                    MainActivity.actualTask.setMember_color(MainActivity.members.get(pos).getColor());
+
                     MainActivity.actualTask.setMember_id(MainActivity.members.get(pos).getId());
-                    MainActivity.actualTask.setMemberName(MainActivity.members.get(pos).getName());
+
+
+                    //Log.d("Code",MainActivity.actualTask.getMemberColor());
                     try {
                         JSONObject js = new restAPI().execute("addTask").get();
                     } catch (InterruptedException e) {

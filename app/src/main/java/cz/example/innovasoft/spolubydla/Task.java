@@ -15,11 +15,14 @@ public class Task {
 
     String member_id;
 
-    String member_name;
-
-    String member_color;
 
     String points;
+
+    int day;
+
+    int month;
+
+    int year;
 
     public String getDescription() {
         return this.description;
@@ -41,15 +44,22 @@ public class Task {
         return this.id;
     }
 
-    public String getMemberName() {return this.member_name; }
-
-    public String getMemberColor() {return this.member_color; }
-
     public String getPoints() { return this.points;}
+
+    public int getDay() { return this.day;}
+
+    public int getMonth() { return this.month; }
+
+    public int getYear() { return this.year; }
+
+    public void setDay(int day) { this.day = day; }
+
+    public void setYear(int year) { this.year = year; }
+
+    public void setMonth(int month) { this.month = month;}
 
     public void setPoints( String points) { this.points = points;}
 
-    public void setMemberName(String member_name) { this.member_name = member_name;}
 
     public void setGroup_id(String group_id) {
         this.group_id = group_id;
@@ -70,8 +80,6 @@ public class Task {
     public void setId(String id) {
         this.id = id;
     }
-
-    public void setMember_color(String member_color) { this.member_color = member_color; }
 
     public void Clear() {
         this.id = "";

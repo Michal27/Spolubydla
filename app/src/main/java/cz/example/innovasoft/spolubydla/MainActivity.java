@@ -47,6 +47,7 @@ public class MainActivity extends AppCompatActivity
     static public ArrayList<Task> userTasks;
     static public ArrayList<Task> allTasks;
     static public String code;
+    static public Member actualMember;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,10 +66,56 @@ public class MainActivity extends AppCompatActivity
         userTasks = new ArrayList<Task>();
         allTasks = new ArrayList<Task>();
         code = new String();
+        actualMember= new Member();
 
         if(userId == -1) {
             startActivity(new Intent(MainActivity.this, WelcomeActivity.class));
         }
+       /*
+        else {
+            try {
+                JSONObject js = new restAPI().execute("getMembers").get();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
+            try {
+                JSONObject js = new restAPI().execute("getGroups").get();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
+            naplnit membera a group
+            bude se plnit zavolanim
+
+            try {
+                JSONObject js = new restAPI().execute("getMember").get();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
+            try {
+                JSONObject js = new restAPI().execute("getGroup").get();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
+            try {
+                JSONObject js = new restAPI().execute("getTasks").get();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
+            displayTasks(allTasks);
+        }
+
+        */
+
         final ActionBar actionBar = getActionBar();
         // Specify that tabs should be displayed in the action bar.
 
@@ -142,7 +189,6 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onReceive(Context context, Intent intent) {
                 displayTasks(allTasks);
-                Log.d("Code", "JE TU KUNDA?");
             }
         };
         LocalBroadcastManager.getInstance(this).registerReceiver(receiver, new IntentFilter("activity-2-initialized"));
@@ -197,53 +243,68 @@ public class MainActivity extends AppCompatActivity
 
         for (int i=0; displayTasks.size() > i; i++)
         {
+            findMember(displayTasks.get(i).getMember_id());
+
             View square = getLayoutInflater().inflate(R.layout.square_template, null);
-            displayTasks.get(i).setMember_color("1"); //toto pak odkráglovat
+
+            if (actualMember.getColor() == null)
+                actualMember.setColor("1"); //toto pak odkráglovat
+
             TextView taskName = (TextView) square.findViewById(R.id.taskName);
             taskName.setText(displayTasks.get(i).getDescription());
 
             TextView taskUser = (TextView) square.findViewById(R.id.taskUser);
-            taskUser.setText(displayTasks.get(i).getMemberName());
+            taskUser.setText(actualMember.getName());
 
             TextView taskPoints = (TextView) square.findViewById(R.id.taskPoints);
             taskPoints.setText(displayTasks.get(i).getPoints());
 
             ImageView userColor = (ImageView) square.findViewById(R.id.userImage);
-            if(displayTasks.get(i).getMemberColor().equals(Integer.toString(0)))//user.color == 0
+            if(actualMember.getColor().equals(Integer.toString(0)))//user.color == 0
             {
                 userColor.setColorFilter(Color.rgb(235,25,25)); //red
             }
-            else if(displayTasks.get(i).getMemberColor().equals(Integer.toString(1)))
+            else if(actualMember.getColor().equals(Integer.toString(1)))
             {
                 userColor.setColorFilter(Color.rgb(25,190,25)); //green
             }
-            else if(displayTasks.get(i).getMemberColor().equals(Integer.toString(2)))
+            else if(actualMember.getColor().equals(Integer.toString(2)))
             {
                 userColor.setColorFilter(Color.rgb(50,215,200)); //azure
             }
-            else if(displayTasks.get(i).getMemberColor().equals(Integer.toString(3)))
+            else if(actualMember.getColor().equals(Integer.toString(3)))
             {
                 userColor.setColorFilter(Color.rgb(0,128,255)); //blue
             }
-            else if(displayTasks.get(i).getMemberColor().equals(Integer.toString(4)))
+            else if(actualMember.getColor().equals(Integer.toString(4)))
             {
                 userColor.setColorFilter(Color.rgb(250,190,20)); //orange
             }
-            else if(displayTasks.get(i).getMemberColor().equals(Integer.toString(5)))
+            else if(actualMember.getColor().equals(Integer.toString(5)))
             {
                 userColor.setColorFilter(Color.rgb(150,40,250)); //purple
             }
-            else if(displayTasks.get(i).getMemberColor().equals(Integer.toString(6)))
+            else if(actualMember.getColor().equals(Integer.toString(6)))
             {
                 userColor.setColorFilter(Color.rgb(225,40,225)); //pink
             }
-            else if(displayTasks.get(i).getMemberColor().equals(Integer.toString(7)))
+            else if(actualMember.getColor().equals(Integer.toString(7)))
             {
                 userColor.setColorFilter(Color.rgb(0,0,0)); //black
             }
 
             mainContent.addView(square);
             mainContent.invalidate();
+        }
+    }
+
+    public void findMember(String id) {
+        for (int i = 0; members.size() > i; i++) {
+            if (id.equals(members.get(i).getId())) {
+                actualMember.setName(members.get(i).getName());
+                actualMember.setColor(members.get(i).getColor());
+                return;
+            }
         }
     }
 }

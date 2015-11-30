@@ -1,8 +1,10 @@
 package cz.example.innovasoft.spolubydla;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -54,6 +56,15 @@ public class ChangeNameActivity extends AppCompatActivity {
                 }
 
                 MainActivity.drawer.openDrawer(Gravity.LEFT);
+
+                try {
+                    JSONObject js = new restAPI().execute("getMembers").get();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                }
+                LocalBroadcastManager.getInstance(this).sendBroadcast(new Intent("activity-2-initialized"));
                 this.finish();
 
                 return true;

@@ -68,6 +68,12 @@ public class restAPI extends AsyncTask<String, String, JSONObject> {
         else if (args[0] == "changeColor") {
             changeUserColor();
         }
+        else if (args[0] == "getGroup") {
+
+        }
+        else if (args[0] == "getMember") {
+
+        }
 
         return null;
 
@@ -211,8 +217,6 @@ public class restAPI extends AsyncTask<String, String, JSONObject> {
 
         MainActivity.actualTask.setGroup_id(MainActivity.group.getId());
         MainActivity.actualTask.setMember_id(MainActivity.member.getId());
-        MainActivity.actualTask.setMemberName(MainActivity.member.getName());
-        MainActivity.actualTask.setMember_color(MainActivity.member.getColor());
 
         hashMap.put("task", MainActivity.actualTask);
         Type mapType = new TypeToken<HashMap<String, Object>>() {}.getType();
