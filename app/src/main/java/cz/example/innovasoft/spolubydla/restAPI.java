@@ -73,7 +73,7 @@ public class restAPI extends AsyncTask<String, String, JSONObject> {
 
         }
         else if (args[0] == "getMember") {
-
+            //getMember();
         }
 
         return null;

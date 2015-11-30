@@ -71,10 +71,11 @@ public class MainActivity extends AppCompatActivity
         code = new String();
         actualMember= new Member();
 
+        actualTask.due_date = new MyDate();
+
         if(userId == -1) {
             startActivity(new Intent(MainActivity.this, WelcomeActivity.class));
         }
-       /*
         else {
             try {
                 JSONObject js = new restAPI().execute("getMembers").get();
@@ -90,8 +91,6 @@ public class MainActivity extends AppCompatActivity
             } catch (ExecutionException e) {
                 e.printStackTrace();
             }
-            naplnit membera a group
-            bude se plnit zavolanim
 
             try {
                 JSONObject js = new restAPI().execute("getMember").get();
@@ -116,8 +115,6 @@ public class MainActivity extends AppCompatActivity
             }
             displayTasks(allTasks);
         }
-
-        */
 
         final ActionBar actionBar = getActionBar();
         // Specify that tabs should be displayed in the action bar.
@@ -284,8 +281,6 @@ public class MainActivity extends AppCompatActivity
             findMember(displayTasks.get(i).getMember_id());
 
             View square = getLayoutInflater().inflate(R.layout.square_template, null);
-
-            Log.d("Code", "NARVA" + actualMember.getColor());
 
             TextView taskName = (TextView) square.findViewById(R.id.taskName);
             taskName.setText(displayTasks.get(i).getDescription());
