@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.CalendarView;
+import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -29,6 +30,7 @@ public class AddTaskActivity extends AppCompatActivity {
     public static int day;
     public static int month;
     public static int year;
+    public static int pointsValue;
 
     public static List<String> users;
     public static ArrayList<Member> ms;
@@ -58,7 +60,32 @@ public class AddTaskActivity extends AppCompatActivity {
                 android.R.layout.simple_spinner_dropdown_item, users);
         selectUser.setAdapter(adapter);
 
+        final SeekBar pointsSeekBar = (SeekBar)findViewById(R.id.pointsValue);
+        //final TextView seekBarValue = (TextView)findViewById(R.id.seekbarvalue);
+
+        pointsSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress,
+                                          boolean fromUser) {
+                // TODO Auto-generated method stub
+                //seekBarValue.setText(String.valueOf(progress));
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+                // TODO Auto-generated method stub
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                // TODO Auto-generated method stub
+                pointsValue = seekBar.getProgress();
+            }
+        });
     }
+
+}
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
