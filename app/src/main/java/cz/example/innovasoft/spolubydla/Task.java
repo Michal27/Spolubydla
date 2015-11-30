@@ -19,6 +19,11 @@ public class Task {
 
     MyDate due_date;
 
+
+    public void Task() {
+        this.due_date = new MyDate();
+    }
+
     public String getDescription() {
         return this.description;
     }

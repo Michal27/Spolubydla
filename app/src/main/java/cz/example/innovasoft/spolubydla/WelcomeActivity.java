@@ -123,14 +123,13 @@ public class WelcomeActivity extends AppCompatActivity {
             } catch (ExecutionException e) {
                 e.printStackTrace();
             }
-            this.finish();
-            /*
+/*
             SharedPreferences settings = getSharedPreferences(MainActivity.PREFS_NAME, 0);
             SharedPreferences.Editor editor = settings.edit();
             editor.putInt("userId", Integer.parseInt(MainActivity.member.getId()));
 
-            editor.commit();
-            this.finish();*/
+            editor.commit();*/
+            this.finish();
         }
         //ELSE CO KDYZ NEZADA JMENO GROUP else {}
 
@@ -165,17 +164,15 @@ public class WelcomeActivity extends AppCompatActivity {
                 e.printStackTrace();
             } catch (ExecutionException e) {
                 e.printStackTrace();
-            }
+            }/*
             LocalBroadcastManager.getInstance(this).sendBroadcast(new Intent("activity-2-initialized"));
-/*
+
             SharedPreferences settings = getSharedPreferences(MainActivity.PREFS_NAME, 0);
             SharedPreferences.Editor editor = settings.edit();
             editor.putInt("userId", Integer.parseInt(MainActivity.member.getId()));
 
-            editor.commit();
+            editor.commit();*/
 
-            LocalBroadcastManager.getInstance(this).sendBroadcast(new Intent("activity-2-initialized"));
-            //MainActivity.displayTasks(MainActivity.allTasks);*/
             this.finish();
         }
         //ELSE CO KDYZ NEZADA JMENO GROUP else {}
