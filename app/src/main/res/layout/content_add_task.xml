@@ -112,6 +112,14 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/pointsValue"
                     android:max="1000"/>
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="5dp"/>
+                <TextView android:id="@+id/seekBarValue" android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:text="0"/>
+
             </LinearLayout>
 
             <Space

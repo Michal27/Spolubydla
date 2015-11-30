@@ -61,7 +61,7 @@ public class AddTaskActivity extends AppCompatActivity {
         selectUser.setAdapter(adapter);
 
         final SeekBar pointsSeekBar = (SeekBar)findViewById(R.id.pointsValue);
-        //final TextView seekBarValue = (TextView)findViewById(R.id.seekbarvalue);
+        final TextView seekBarValue = (TextView)findViewById(R.id.seekBarValue);
 
         pointsSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 
@@ -69,7 +69,7 @@ public class AddTaskActivity extends AppCompatActivity {
             public void onProgressChanged(SeekBar seekBar, int progress,
                                           boolean fromUser) {
                 // TODO Auto-generated method stub
-                //seekBarValue.setText(String.valueOf(progress));
+                seekBarValue.setText(String.valueOf(progress));
             }
 
             @Override
