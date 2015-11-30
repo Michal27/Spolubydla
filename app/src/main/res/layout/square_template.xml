@@ -92,7 +92,8 @@
                             android:layout_height="wrap_content"
                             android:id="@+id/stateImage"
                             android:src="@drawable/ic_done"
-                            android:tint="@color/green"/>
+                            android:tint="@color/green"
+                            android:visibility="invisible"/>
                         <Space
                             android:layout_width="20dp"
                             android:layout_height="match_parent"/>

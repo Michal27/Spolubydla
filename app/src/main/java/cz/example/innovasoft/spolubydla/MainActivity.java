@@ -1,6 +1,7 @@
 package cz.example.innovasoft.spolubydla;
 
 import android.app.ActionBar;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -271,15 +272,18 @@ public class MainActivity extends AppCompatActivity
 
     public void displayTasks(ArrayList<Task> displayTasks)
     {
-
         LinearLayout mainContent = (LinearLayout)findViewById(R.id.mainContent);
         mainContent.removeAllViews();
 
         for (int i=0; displayTasks.size() > i; i++)
         {
+            final String listenerTaskName = displayTasks.get(i).getDescription();
+            final Task actualTask = displayTasks.get(i);
+
             findMember(displayTasks.get(i).getMember_id());
 
             View square = getLayoutInflater().inflate(R.layout.square_template, null);
+            final View actualView = square;
 
             TextView taskName = (TextView) square.findViewById(R.id.taskName);
             taskName.setText(displayTasks.get(i).getDescription());
@@ -330,6 +334,31 @@ public class MainActivity extends AppCompatActivity
             square.setOnLongClickListener(new View.OnLongClickListener(){
                 @Override
                 public boolean onLongClick(View v) {
+
+                    final AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
+                    builder.setTitle(listenerTaskName)
+                            .setItems(R.array.square_choose_array, new DialogInterface.OnClickListener() {
+                                final View clickedView = actualView;
+                                public void onClick(DialogInterface dialog, int which) {
+                                    if(which == 0)
+                                    {
+                                        //TADY NASTAVIT actualTask na SPLNENO
+
+                                        ImageView stateImage = (ImageView) clickedView.findViewById(R.id.stateImage);
+                                        stateImage.setVisibility(View.VISIBLE);
+                                    }
+                                    if(which == 1)
+                                    {
+                                        //TADY NASTAVIT actualTask na NESPLNENO
+
+                                        ImageView stateImage = (ImageView) clickedView.findViewById(R.id.stateImage);
+                                        stateImage.setVisibility(View.INVISIBLE);
+                                    }
+                                }
+                            });
+
+                    builder.create();
+                    builder.show();
 
                     return true;
                 }

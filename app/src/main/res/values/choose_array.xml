@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array
+        name="square_choose_array">
+            <item>Označit jako splněno</item>
+            <item>Označit jako nesplněno</item>
+            <item>Editovat úkol</item>
+    </string-array>
+</resources>
+
