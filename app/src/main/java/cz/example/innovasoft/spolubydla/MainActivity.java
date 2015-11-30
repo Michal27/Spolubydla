@@ -298,7 +298,7 @@ public class MainActivity extends AppCompatActivity
             taskPoints.setText(displayTasks.get(i).getPoints());
 
             TextView taskDate = (TextView) square.findViewById(R.id.taskDate);
-            taskDate.setText(displayTasks.get(i).getDueDate().getDay() + "." + displayTasks.get(i).getDueDate().getMonth() + "." + displayTasks.get(i).getDueDate().getYear());
+            //taskDate.setText(displayTasks.get(i).getDueDate().getDay() + "." + displayTasks.get(i).getDueDate().getMonth() + "." + displayTasks.get(i).getDueDate().getYear());
 
             ImageView userColor = (ImageView) square.findViewById(R.id.userImage);
             if(actualMember.getColor().equals(Integer.toString(0)))//user.color == 0
@@ -334,7 +334,13 @@ public class MainActivity extends AppCompatActivity
                 userColor.setColorFilter(Color.rgb(0,0,0)); //black
             }
 
+            square.setOnLongClickListener(new View.OnLongClickListener(){
+                @Override
+                public boolean onLongClick(View v) {
 
+                    return true;
+                }
+            });
 
             mainContent.addView(square);
             mainContent.invalidate();

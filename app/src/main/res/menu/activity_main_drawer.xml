@@ -15,6 +15,8 @@
             <item android:id="@+id/nav_showCode" android:icon="@drawable/ic_action_link"
                 android:title="Získat odkaz pro připojení" />
 
+
+
             <item android:id="@+id/nav_settings" android:icon="@drawable/ic_settings"
                 android:title="Nastavení" />
         </menu>
