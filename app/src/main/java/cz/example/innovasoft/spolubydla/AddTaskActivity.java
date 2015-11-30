@@ -79,9 +79,9 @@ public class AddTaskActivity extends AppCompatActivity {
 
                     MainActivity.actualTask.due_date = new MyDate();
 
-                    MainActivity.actualTask.due_date.setYear("2015");
-                    MainActivity.actualTask.due_date.setMonth("11");
-                    MainActivity.actualTask.due_date.setDay("20");
+                    MainActivity.actualTask.due_date.setYear(Integer.toString(AddTaskActivity.year));
+                    MainActivity.actualTask.due_date.setMonth(Integer.toString(AddTaskActivity.month));
+                    MainActivity.actualTask.due_date.setDay(Integer.toString(AddTaskActivity.day));
 
                     try {
                         JSONObject js = new restAPI().execute("addTask").get();

@@ -17,6 +17,17 @@ public class Member {
 
     public String group_code;
 
+
+    public String points;
+
+    public void setPoints(String points) {
+        this.points = points;
+    }
+
+    public String getPoints() {
+        return points;
+    }
+
     public String getName() {
         return this.name;
     }

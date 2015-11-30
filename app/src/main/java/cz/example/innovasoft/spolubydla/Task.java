@@ -20,6 +20,16 @@ public class Task {
     MyDate due_date;
 
 
+    Boolean done;
+
+    public Boolean getDone() {
+        return this.done;
+    }
+
+    public void setDone(Boolean done) {
+        this.done = done;
+    }
+
     public String getDescription() {
         return this.description;
     }
@@ -41,6 +51,7 @@ public class Task {
     }
 
     public String getPoints() { return this.points;}
+
 
     public void setPoints( String points) { this.points = points;}
 

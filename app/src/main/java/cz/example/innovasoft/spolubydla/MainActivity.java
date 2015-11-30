@@ -75,23 +75,9 @@ public class MainActivity extends AppCompatActivity
 
         if(userId == -1) {
             startActivity(new Intent(MainActivity.this, WelcomeActivity.class));
-        }/*
+        }
         else {
-            try {
-                JSONObject js = new restAPI().execute("getMembers").get();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            } catch (ExecutionException e) {
-                e.printStackTrace();
-            }
-            try {
-                JSONObject js = new restAPI().execute("getGroups").get();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            } catch (ExecutionException e) {
-                e.printStackTrace();
-            }
-
+            MainActivity.member.setId(Integer.toString(userId));
             try {
                 JSONObject js = new restAPI().execute("getMember").get();
             } catch (InterruptedException e) {
@@ -99,6 +85,8 @@ public class MainActivity extends AppCompatActivity
             } catch (ExecutionException e) {
                 e.printStackTrace();
             }
+
+            MainActivity.group.setId(MainActivity.member.getGroup_id());
             try {
                 JSONObject js = new restAPI().execute("getGroup").get();
             } catch (InterruptedException e) {
@@ -106,6 +94,7 @@ public class MainActivity extends AppCompatActivity
             } catch (ExecutionException e) {
                 e.printStackTrace();
             }
+
             try {
                 JSONObject js = new restAPI().execute("getTasks").get();
             } catch (InterruptedException e) {
@@ -113,9 +102,17 @@ public class MainActivity extends AppCompatActivity
             } catch (ExecutionException e) {
                 e.printStackTrace();
             }
+            try {
+                JSONObject js = new restAPI().execute("getMembers").get();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
+
             displayTasks(allTasks);
         }
-*/
+
         final ActionBar actionBar = getActionBar();
         // Specify that tabs should be displayed in the action bar.
 
@@ -270,7 +267,7 @@ public class MainActivity extends AppCompatActivity
     }
 
 
-    public void displayTasks(ArrayList<Task> displayTasks)
+    public void displayTasks(final ArrayList<Task> displayTasks)
     {
         LinearLayout mainContent = (LinearLayout)findViewById(R.id.mainContent);
         mainContent.removeAllViews();
@@ -294,12 +291,8 @@ public class MainActivity extends AppCompatActivity
             TextView taskPoints = (TextView) square.findViewById(R.id.taskPoints);
             taskPoints.setText(displayTasks.get(i).getPoints());
 
-            Log.d("Code", "PICA");
-
             TextView taskDate = (TextView) square.findViewById(R.id.taskDate);
-            //taskDate.setText(displayTasks.get(i).getDueDate().getDay() + "." + displayTasks.get(i).getDueDate().getMonth() + "." + displayTasks.get(i).getDueDate().getYear());
-
-            Log.d("Code", "PICA");
+            taskDate.setText(displayTasks.get(i).getDueDate().getDay() + "." + displayTasks.get(i).getDueDate().getMonth() + "." + displayTasks.get(i).getDueDate().getYear());
 
             ImageView userColor = (ImageView) square.findViewById(R.id.userImage);
             if(actualMember.getColor().equals(Integer.toString(0)))//user.color == 0
@@ -335,6 +328,7 @@ public class MainActivity extends AppCompatActivity
                 userColor.setColorFilter(Color.rgb(0,0,0)); //black
             }
 
+            final int finalI = i;
             square.setOnLongClickListener(new View.OnLongClickListener(){
                 @Override
                 public boolean onLongClick(View v) {
@@ -346,14 +340,32 @@ public class MainActivity extends AppCompatActivity
                                 public void onClick(DialogInterface dialog, int which) {
                                     if(which == 0)
                                     {
-                                        //TADY NASTAVIT actualTask na SPLNENO
+                                        MainActivity.actualTask = displayTasks.get(finalI);
+                                        MainActivity.actualTask.setDone(true);
+
+                                        try {
+                                            JSONObject js = new restAPI().execute("changeTask").get();
+                                        } catch (InterruptedException e) {
+                                            e.printStackTrace();
+                                        } catch (ExecutionException e) {
+                                            e.printStackTrace();
+                                        }
 
                                         ImageView stateImage = (ImageView) clickedView.findViewById(R.id.stateImage);
                                         stateImage.setVisibility(View.VISIBLE);
                                     }
                                     if(which == 1)
                                     {
-                                        //TADY NASTAVIT actualTask na NESPLNENO
+                                        MainActivity.actualTask = displayTasks.get(finalI);
+                                        MainActivity.actualTask.setDone(false);
+
+                                        try {
+                                            JSONObject js = new restAPI().execute("changeTask").get();
+                                        } catch (InterruptedException e) {
+                                            e.printStackTrace();
+                                        } catch (ExecutionException e) {
+                                            e.printStackTrace();
+                                        }
 
                                         ImageView stateImage = (ImageView) clickedView.findViewById(R.id.stateImage);
                                         stateImage.setVisibility(View.INVISIBLE);
@@ -397,41 +409,41 @@ public class MainActivity extends AppCompatActivity
             user.setText(displayMembers.get(i).getName());
 
             TextView taskPoints = (TextView) square.findViewById(R.id.taskPoints);
-            //taskPoints.setText(displayMembers.get(i).getTotalPoints()); TADY PRIDAT VYPIS VSECH BODU MEMBERA
+            taskPoints.setText(displayMembers.get(i).getPoints());
 
-            ImageView userColor = (ImageView) square.findViewById(R.id.userImage); //A TADY UDELAT BARVY JEDNOTLIVYCH MEMBERU
-            /*if(displayMembers.get(i).getMemberColor().equals(Integer.toString(0)))//user.color == 0
+            ImageView userColor = (ImageView) square.findViewById(R.id.userImage);
+            if(displayMembers.get(i).getColor().equals(Integer.toString(0)))//user.color == 0
             {
                 userColor.setColorFilter(Color.rgb(235,25,25)); //red
             }
-            else if(displayTasks.get(i).getMemberColor().equals(Integer.toString(1)))
+            else if(displayMembers.get(i).getColor().equals(Integer.toString(1)))
             {
                 userColor.setColorFilter(Color.rgb(25,190,25)); //green
             }
-            else if(displayTasks.get(i).getMemberColor().equals(Integer.toString(2)))
+            else if(displayMembers.get(i).getColor().equals(Integer.toString(2)))
             {
                 userColor.setColorFilter(Color.rgb(50,215,200)); //azure
             }
-            else if(displayTasks.get(i).getMemberColor().equals(Integer.toString(3)))
+            else if(displayMembers.get(i).getColor().equals(Integer.toString(3)))
             {
                 userColor.setColorFilter(Color.rgb(0,128,255)); //blue
             }
-            else if(displayTasks.get(i).getMemberColor().equals(Integer.toString(4)))
+            else if(displayMembers.get(i).getColor().equals(Integer.toString(4)))
             {
                 userColor.setColorFilter(Color.rgb(250,190,20)); //orange
             }
-            else if(displayTasks.get(i).getMemberColor().equals(Integer.toString(5)))
+            else if(displayMembers.get(i).getColor().equals(Integer.toString(5)))
             {
                 userColor.setColorFilter(Color.rgb(150,40,250)); //purple
             }
-            else if(displayTasks.get(i).getMemberColor().equals(Integer.toString(6)))
+            else if(displayMembers.get(i).getColor().equals(Integer.toString(6)))
             {
                 userColor.setColorFilter(Color.rgb(225,40,225)); //pink
             }
-            else if(displayTasks.get(i).getMemberColor().equals(Integer.toString(7)))
+            else if(displayMembers.get(i).getColor().equals(Integer.toString(7)))
             {
                 userColor.setColorFilter(Color.rgb(0,0,0)); //black
-            }*/
+            }
 
             mainContent.addView(square);
             mainContent.invalidate();

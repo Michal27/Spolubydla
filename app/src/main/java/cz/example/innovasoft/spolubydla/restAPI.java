@@ -70,10 +70,13 @@ public class restAPI extends AsyncTask<String, String, JSONObject> {
             changeUserColor();
         }
         else if (args[0] == "getGroup") {
-
+            getGroup();
         }
         else if (args[0] == "getMember") {
-            //getMember();
+            getMember();
+        }
+        else if (args[0] == "changeTask") {
+            changeTask();
         }
 
         return null;
@@ -126,6 +129,7 @@ public class restAPI extends AsyncTask<String, String, JSONObject> {
     protected void addMember() {
         MainActivity.member.setGroup_code(MainActivity.code);
         MainActivity.member.setColor("0");
+        MainActivity.member.setPoints("0");
         MainActivity.member.setAdmin(false);
 
         HashMap<String, Object> hashMap = new HashMap<String, Object>();
@@ -157,6 +161,8 @@ public class restAPI extends AsyncTask<String, String, JSONObject> {
     protected void joinMember() {
 
         MainActivity.member.setAdmin(false);
+        MainActivity.member.setColor("0");
+        MainActivity.member.setPoints("0");
         MainActivity.member.setGroup_code(MainActivity.code);
 
         HashMap<String, Object> hashMap = new HashMap<String, Object>();
@@ -205,7 +211,6 @@ public class restAPI extends AsyncTask<String, String, JSONObject> {
         Member objs = gson.fromJson(r, Member.class);
 
         MainActivity.member.setId(objs.getId());
-        MainActivity.member.setColor(objs.getColor());
         MainActivity.member.setGroup_id(objs.getGroup_id());
         MainActivity.group.setId(objs.getGroup_id());
     }
@@ -316,7 +321,6 @@ public class restAPI extends AsyncTask<String, String, JSONObject> {
 
             for(JsonElement obj : jArray ) {
 
-                Log.d("Code", obj.toString());
                 Task t = gson.fromJson(obj, Task.class);
 
                 MainActivity.userTasks.add(t);
@@ -406,4 +410,110 @@ public class restAPI extends AsyncTask<String, String, JSONObject> {
             e.printStackTrace();
         }
     }
+
+    public void changeTask() {
+
+        HashMap<String, Object> hashMap = new HashMap<String, Object>();
+        hashMap.put("task", MainActivity.actualTask);
+        Type mapType = new TypeToken<HashMap<String, Object>>() {}.getType();
+
+        HttpClient httpClient = new DefaultHttpClient();
+
+        HttpPut httpPut = new HttpPut("https://spolubydle.herokuapp.com/tasks/" + MainActivity.actualTask.getId() + ".json");
+
+        httpPut.setHeader("Content-Type", "application/json; charset=utf-8");
+
+        try {
+            httpPut.setEntity(new StringEntity(new Gson().toJson(hashMap, mapType)));
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            HttpResponse response = httpClient.execute(httpPut);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void getMember(){
+        InputStream data = null;
+        HttpClient httpClient = new DefaultHttpClient();
+
+
+        String url = "https://spolubydle.herokuapp.com/members.json";
+        HttpGet httpGet = new HttpGet(url);
+        httpGet.setHeader("Content-Type", "application/json; charset=utf-8");
+
+        try {
+            HttpResponse response = httpClient.execute(httpGet);
+            data = response.getEntity().getContent();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        if (data != null) {
+
+            Reader r = new InputStreamReader(data);
+
+            Gson gson = new Gson();
+            JsonParser parser = new JsonParser();
+
+            JsonArray jArray = parser.parse(r).getAsJsonArray();
+
+            for(JsonElement obj : jArray ) {
+                Member t = gson.fromJson(obj, Member.class);
+
+                if (t.getId().equals(MainActivity.member.getId())) {
+
+                    MainActivity.member.setColor(t.getColor());
+                    MainActivity.member.setPoints(t.getPoints());
+                    MainActivity.member.setName(t.getName());
+                    MainActivity.member.setGroup_id(t.getGroup_id());
+                    MainActivity.member.setGroup_code(t.getGroup_code());
+                    MainActivity.member.setAdmin(t.getAdmin());
+                }
+            }
+        }
+    }
+
+    public void getGroup(){
+        InputStream data = null;
+        HttpClient httpClient = new DefaultHttpClient();
+
+
+        String url = "https://spolubydle.herokuapp.com/groups.json";
+        HttpGet httpGet = new HttpGet(url);
+        httpGet.setHeader("Content-Type", "application/json; charset=utf-8");
+
+        try {
+            HttpResponse response = httpClient.execute(httpGet);
+            data = response.getEntity().getContent();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        if (data != null) {
+
+            Reader r = new InputStreamReader(data);
+
+            Gson gson = new Gson();
+            JsonParser parser = new JsonParser();
+
+            JsonArray jArray = parser.parse(r).getAsJsonArray();
+
+            for(JsonElement obj : jArray ) {
+                Group t = gson.fromJson(obj, Group.class);
+
+                if (t.getId().equals(MainActivity.group.getId())) {
+                    MainActivity.group.setCode(t.getCode());
+                    MainActivity.group.setName(t.getName());
+                    MainActivity.group.setSettings(t.getSettings());
+                    MainActivity.code = MainActivity.group.getCode();
+                }
+            }
+        }
+    }
+
 }

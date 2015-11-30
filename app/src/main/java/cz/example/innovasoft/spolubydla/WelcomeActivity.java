@@ -123,12 +123,12 @@ public class WelcomeActivity extends AppCompatActivity {
             } catch (ExecutionException e) {
                 e.printStackTrace();
             }
-/*
+
             SharedPreferences settings = getSharedPreferences(MainActivity.PREFS_NAME, 0);
             SharedPreferences.Editor editor = settings.edit();
             editor.putInt("userId", Integer.parseInt(MainActivity.member.getId()));
 
-            editor.commit();*/
+            editor.commit();
             Log.d("Code", Integer.toString(MainActivity.members.size()));
             this.finish();
         }
@@ -159,20 +159,21 @@ public class WelcomeActivity extends AppCompatActivity {
             } catch (ExecutionException e) {
                 e.printStackTrace();
             }
+
             try {
                 JSONObject js = new restAPI().execute("getTasks").get();
             } catch (InterruptedException e) {
                 e.printStackTrace();
             } catch (ExecutionException e) {
                 e.printStackTrace();
-            }/*
+            }
             LocalBroadcastManager.getInstance(this).sendBroadcast(new Intent("activity-2-initialized"));
 
             SharedPreferences settings = getSharedPreferences(MainActivity.PREFS_NAME, 0);
             SharedPreferences.Editor editor = settings.edit();
             editor.putInt("userId", Integer.parseInt(MainActivity.member.getId()));
 
-            editor.commit();*/
+            editor.commit();
 
             this.finish();
         }
