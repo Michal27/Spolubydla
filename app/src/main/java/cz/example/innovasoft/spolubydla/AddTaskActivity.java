@@ -83,9 +83,9 @@ public class AddTaskActivity extends AppCompatActivity {
                 pointsValue = seekBar.getProgress();
             }
         });
-    }
 
-}
+
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
